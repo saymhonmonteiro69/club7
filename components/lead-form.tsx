@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { WHATSAPP_PHONE } from "@/lib/whatsapp" // Ou coloque o número direto ex: "5592984850757"
 
 export function LeadForm() {
   const [formData, setFormData] = useState({
@@ -16,7 +15,6 @@ export function LeadForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
-    // Validação básica
     if (!formData.name || !formData.phone || !formData.city) {
       alert("Por favor, preencha nome, WhatsApp e cidade.")
       return
@@ -24,15 +22,14 @@ export function LeadForm() {
 
     // Monta a mensagem formatada para o WhatsApp
     const text = `*Nova Simulação - Tvlar Motos*%0A%0A` +
-      `*Nome:* ${formData.name}%0A` +
-      `*WhatsApp:* ${formData.phone}%0A` +
-      `*Cidade:* ${formData.city}%0A` +
-      `*Plano:* ${formData.plan || "Não informado"}%0A` +
-      `*Negativado:* ${formData.negativado || "Não informado"}%0A` +
-      `*Mensagem:* ${formData.message || "Nenhuma"}`
+      `*Nome:* ${encodeURIComponent(formData.name)}%0A` +
+      `*WhatsApp:* ${encodeURIComponent(formData.phone)}%0A` +
+      `*Cidade:* ${encodeURIComponent(formData.city)}%0A` +
+      `*Plano:* ${encodeURIComponent(formData.plan || "Não selecionado")}%0A` +
+      `*Negativado:* ${encodeURIComponent(formData.negativado || "Não selecionado")}%0A` +
+      `*Mensagem:* ${encodeURIComponent(formData.message || "Nenhuma")}`
 
-    // Abre o WhatsApp direto com os dados da ficha
-    const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${text}`
+    const whatsappUrl = `https://wa.me/5592984850757?text=${text}`
     window.open(whatsappUrl, "_blank")
   }
 
@@ -56,7 +53,7 @@ export function LeadForm() {
           <input
             type="text"
             required
-            placeholder="(92) 99999-9999"
+            placeholder="(92) 98485-0757"
             value={formData.phone}
             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
             className="w-full rounded-md bg-black px-3 py-2 text-sm text-white border border-zinc-800 focus:border-blue-500 focus:outline-none"
