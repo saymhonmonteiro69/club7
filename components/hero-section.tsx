@@ -4,48 +4,48 @@ import { WHATSAPP_LINK } from "@/lib/whatsapp"
 
 export function HeroSection() {
   return (
-    <section className="bg-white px-4 py-16 md:py-24">
-      <div className="mx-auto flex max-w-7xl flex-col items-center gap-12 md:flex-row md:justify-between md:gap-16">
-        {/* Bloco de Texto (Esquerda em telas grandes) */}
-        <div className="flex flex-col items-center text-center md:w-1/2 md:items-start md:text-left">
-          <span className="mb-4 inline-flex items-center rounded-full bg-emerald-100 px-4 py-1.5 text-xs font-semibold text-emerald-700">
-            Aprovação Rápida e Sem Burocracia
+    <section className="bg-gradient-to-b from-[#0011cc] to-[#000a80] text-white py-12 md:py-20 px-4">
+      <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
+        <div className="flex-1 space-y-6 text-center md:text-left">
+          <span className="inline-block bg-yellow-400 text-slate-900 font-bold px-3 py-1 rounded-full text-xs uppercase tracking-wider">
+            ⚡ Aprovação rápida e sem burocracia
           </span>
-          
-          <h1 className="mb-6 text-4xl font-extrabold leading-tight tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
+          <h1 className="text-3xl md:text-5xl font-extrabold leading-tight">
             Sua Yamaha 0km a <br />
-            <span className="text-[#0011cc]">1 passo</span> de distância
+            <span className="text-yellow-400">1 passo</span> de distância
           </h1>
-          
-          <p className="mb-10 max-w-lg text-lg text-gray-600 sm:text-xl">
-            Com o Club 7 da Tvlar Motors Yamaha, você conquista sua moto zero quilômetro com as melhores condições de aprovação do mercado — mesmo sem comprovação de renda!
+          <p className="text-white/80 text-sm md:text-base max-w-xl">
+            Chega de gastar todo mês com aluguel de moto ou depender dos outros para trabalhar. Com o <strong>Club 7</strong> e o <strong>Club 7 Turbo</strong> da Tvlar Motos Yamaha, você conquista sua moto zero quilômetro mesmo com o nome negativado — e ainda sai da rua do aluguel de uma vez por todas.
           </p>
-          
-          <div className="flex flex-col gap-4 sm:flex-row">
+          <p className="text-xs text-white/60">
+            Ideal para motoboys, entregadores de aplicativo e quem precisa da moto no dia a dia. Preencha a simulação em menos de 2 minutos e nossa equipe entra em contato pelo WhatsApp.
+          </p>
+          <div className="pt-2">
             <a
-              href={WHATSAPP_LINK("Olá! Quero simular um plano e verificar as condições de aprovação.")}
+              href={WHATSAPP_LINK("Olá! Quero simular aprovação da minha Yamaha.")}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 rounded-full bg-emerald-500 px-8 py-4 text-lg font-bold text-white shadow-lg transition hover:bg-emerald-600 active:scale-95"
+              className="inline-flex items-center gap-2 bg-yellow-400 hover:bg-yellow-300 text-slate-900 font-extrabold px-8 py-4 rounded-lg text-lg shadow-lg transition transform hover:-translate-y-0.5"
             >
-              <MessageCircle className="h-6 w-6" />
-              Simular Aprovação Agora
+              SIMULAR AGORA
             </a>
+          </div>
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 text-xs text-white/70 pt-2">
+            <span>✓ Sem consulta ao SPC/Serasa*</span>
+            <span>✓ Retirada no mesmo dia</span>
           </div>
         </div>
 
-        {/* Bloco da Imagem - Aumentado Substancialmente (Direita em telas grandes) */}
-        <div className="flex w-full justify-center md:w-1/2 md:justify-end">
-          <div className="relative w-full max-w-xl md:max-w-none"> {/* Aumentado o max-w-xl para telas menores e liberado em md: */}
+        {/* Aqui aumentamos a imagem ajustando scale e tamanho do container */}
+        <div className="flex-1 flex justify-center w-full mt-6 md:mt-0">
+          <div className="relative w-full max-w-md md:max-w-lg transform hover:scale-105 transition duration-300">
             <Image
-              src="/yamaha-factor-hero.png" // Garanta que a foto nova (preta na concessionária) tenha este nome exato na pasta public
-              alt="Yamaha Factor 150 UBS Preta na Concessionária Club 7"
-              // Aumentamos os valores de referência para o Next.js otimizar (eram menores)
-              width={1000} // Valor base alto para renderizar nítido
-              height={750} // Mantendo a proporção aproximada da foto da concessionária (4:3)
-              // Classes Tailwind ajustadas para preencher o container e aumentar o tamanho visual
-              className="h-auto w-full object-contain object-center drop-shadow-2xl md:scale-110 xl:scale-125" // Scale aumenta o tamanho visual além do container em md: e xl:
-              priority // Garante que a imagem principal carregue primeiro
+              src="/yamaha-factor-hero.png"
+              alt="Yamaha 0km"
+              width={600}
+              height={450}
+              className="w-full h-auto object-contain scale-125 md:scale-150"
+              priority
             />
           </div>
         </div>
