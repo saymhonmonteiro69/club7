@@ -5,8 +5,10 @@ import { WHATSAPP_LINK } from "@/lib/whatsapp"
 export function HeroSection() {
   return (
     <section className="bg-gradient-to-b from-[#0011cc] to-[#000a80] text-white py-12 md:py-20 px-4">
-      <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
-        <div className="flex-1 space-y-6 text-center md:text-left">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 overflow-hidden">
+        
+        {/* Lado Esquerdo: Textos */}
+        <div className="flex-1 space-y-6 text-center md:text-left z-10">
           <span className="inline-block bg-yellow-400 text-slate-900 font-bold px-3 py-1 rounded-full text-xs uppercase tracking-wider">
             ⚡ Aprovação rápida e sem burocracia
           </span>
@@ -36,19 +38,20 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* Aqui aumentamos a imagem ajustando scale e tamanho do container */}
+        {/* Lado Direito: Foto em Destaque */}
         <div className="flex-1 flex justify-center w-full mt-6 md:mt-0">
-          <div className="relative w-full max-w-md md:max-w-lg transform hover:scale-105 transition duration-300">
+          <div className="relative w-full max-w-lg overflow-hidden rounded-2xl shadow-2xl border-2 border-white/20">
             <Image
               src="/yamaha-factor-hero.png"
-              alt="Yamaha 0km"
-              width={600}
-              height={450}
-              className="w-full h-auto object-contain scale-125 md:scale-150"
+              alt="Yamaha Factor na Loja"
+              width={800}
+              height={600}
+              className="w-full h-auto object-cover transform hover:scale-105 transition duration-500"
               priority
             />
           </div>
         </div>
+
       </div>
     </section>
   )
