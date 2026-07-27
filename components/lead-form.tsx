@@ -5,28 +5,44 @@ import { useState } from "react"
 export function LeadForm() {
   const [formData, setFormData] = useState({
     name: "",
+    cpf: "",
     phone: "",
     city: "",
+    cnh: "",
     plan: "",
     negativado: "",
     message: "",
   })
 
+  // Função para aplicar máscara automática no CPF (000.000.000-00)
+  const handleCpfChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let value = e.target.value.replace(/\D/g, "")
+    if (value.length > 11) value = value.slice(0, 11)
+    
+    value = value.replace(/(\d{3})(\d)/, "$1.$2")
+    value = value.replace(/(\d{3})(\d)/, "$1.$2")
+    value = value.replace(/(\d{3})(\d{1,2})$/, "$1-$2")
+
+    setFormData({ ...formData, cpf: value })
+  }
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
-    if (!formData.name || !formData.phone || !formData.city) {
-      alert("Por favor, preencha nome, WhatsApp e cidade.")
+    if (!formData.name || !formData.cpf || !formData.phone || !formData.city) {
+      alert("Por favor, preencha Nome, CPF, WhatsApp e Cidade.")
       return
     }
 
-    // Monta a mensagem formatada para o WhatsApp
+    // Monta a mensagem organizada para o WhatsApp
     const text = `*Nova Simulação - Tvlar Motos*%0A%0A` +
       `*Nome:* ${encodeURIComponent(formData.name)}%0A` +
+      `*CPF:* ${encodeURIComponent(formData.cpf)}%0A` +
       `*WhatsApp:* ${encodeURIComponent(formData.phone)}%0A` +
       `*Cidade:* ${encodeURIComponent(formData.city)}%0A` +
-      `*Plano:* ${encodeURIComponent(formData.plan || "Não selecionado")}%0A` +
-      `*Negativado:* ${encodeURIComponent(formData.negativado || "Não selecionado")}%0A` +
+      `*Possui CNH A:* ${encodeURIComponent(formData.cnh || "Não informado")}%0A` +
+      `*Plano:* ${encodeURIComponent(formData.plan || "Não informado")}%0A` +
+      `*Negativado:* ${encodeURIComponent(formData.negativado || "Não informado")}%0A` +
       `*Mensagem:* ${encodeURIComponent(formData.message || "Nenhuma")}`
 
     const whatsappUrl = `https://wa.me/5592984850757?text=${text}`
@@ -35,6 +51,7 @@ export function LeadForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 rounded-xl bg-zinc-900 p-6 text-white shadow-xl border border-white/10">
+      {/* Nome Completo */}
       <div>
         <label className="block text-xs font-bold text-blue-400 mb-1">Nome completo *</label>
         <input
@@ -47,7 +64,20 @@ export function LeadForm() {
         />
       </div>
 
+      {/* CPF e WhatsApp */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div>
+          <label className="block text-xs font-bold text-blue-400 mb-1">CPF *</label>
+          <input
+            type="text"
+            required
+            placeholder="000.000.000-00"
+            value={formData.cpf}
+            onChange={handleCpfChange}
+            className="w-full rounded-md bg-black px-3 py-2 text-sm text-white border border-zinc-800 focus:border-blue-500 focus:outline-none"
+          />
+        </div>
+
         <div>
           <label className="block text-xs font-bold text-blue-400 mb-1">WhatsApp (com DDD) *</label>
           <input
@@ -59,7 +89,10 @@ export function LeadForm() {
             className="w-full rounded-md bg-black px-3 py-2 text-sm text-white border border-zinc-800 focus:border-blue-500 focus:outline-none"
           />
         </div>
+      </div>
 
+      {/* Cidade e Pergunta da CNH */}
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
           <label className="block text-xs font-bold text-blue-400 mb-1">Cidade *</label>
           <input
@@ -71,8 +104,23 @@ export function LeadForm() {
             className="w-full rounded-md bg-black px-3 py-2 text-sm text-white border border-zinc-800 focus:border-blue-500 focus:outline-none"
           />
         </div>
+
+        <div>
+          <label className="block text-xs font-bold text-blue-400 mb-1">Possui CNH Categoria A?</label>
+          <select
+            value={formData.cnh}
+            onChange={(e) => setFormData({ ...formData, cnh: e.target.value })}
+            className="w-full rounded-md bg-black px-3 py-2 text-sm text-white border border-zinc-800 focus:border-blue-500 focus:outline-none"
+          >
+            <option value="">Selecione</option>
+            <option value="Sim (Definitiva ou Provisória)">Sim</option>
+            <option value="Não possui CNH A">Não</option>
+            <option value="Em processo de tirar CNH">Em processo de tirar</option>
+          </select>
+        </div>
       </div>
 
+      {/* Plano de Interesse e Status Negativado */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
           <label className="block text-xs font-bold text-blue-400 mb-1">Plano de interesse</label>
@@ -102,6 +150,7 @@ export function LeadForm() {
         </div>
       </div>
 
+      {/* Mensagem Opcional */}
       <div>
         <label className="block text-xs font-bold text-blue-400 mb-1">Mensagem (opcional)</label>
         <textarea
@@ -113,9 +162,10 @@ export function LeadForm() {
         />
       </div>
 
+      {/* Botão de Envio */}
       <button
         type="submit"
-        className="w-full rounded-lg bg-amber-400 py-3.5 text-base font-extrabold text-slate-900 shadow-lg hover:bg-amber-300 transition active:scale-98"
+        className="w-full rounded-lg bg-amber-400 py-3.5 text-base font-extrabold text-slate-900 shadow-lg hover:bg-amber-300 transition active:scale-98 cursor-pointer"
       >
         QUERO SIMULAR AGORA
       </button>
