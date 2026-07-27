@@ -6,16 +6,16 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0011cc] px-4 py-3 text-white shadow-md">
       <div className="mx-auto flex max-w-5xl items-center justify-between gap-4">
-        {/* Logos sem fundo branco (integradas diretamente ao fundo azul) */}
+        {/* Container das Logos */}
         <div className="flex items-center gap-3">
           {/* Logo Tvlar Motors */}
           <div className="flex items-center">
             <Image
-              src="/logo-tvlar.png"
+              src="/logo-tvlar-motors.png" 
               alt="Tvlar Motors"
-              width={110}
-              height={32}
-              className="h-7 w-auto object-contain brightness-0 invert" 
+              width={120}
+              height={35}
+              className="h-8 w-auto object-contain drop-shadow-md" 
               priority
             />
           </div>
@@ -23,20 +23,20 @@ export function SiteHeader() {
           {/* Divisória discreta */}
           <span className="h-6 w-px bg-white/30" aria-hidden="true" />
 
-          {/* Logo Yamaha Revs Your Heart */}
+          {/* Logo Yamaha "Revs Your Heart" */}
           <div className="flex items-center">
             <Image
               src="/logo-yamaha.png"
               alt="Yamaha - Revs Your Heart"
               width={120}
-              height={36}
+              height={35}
               className="h-8 w-auto object-contain drop-shadow-md"
               priority
             />
           </div>
         </div>
 
-        {/* Botão de WhatsApp de Alta Conversão */}
+        {/* Botão de WhatsApp */}
         <a
           href={WHATSAPP_LINK("Olá! Quero simular um plano e verificar as condições de aprovação.")}
           target="_blank"
