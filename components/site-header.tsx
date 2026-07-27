@@ -4,37 +4,33 @@ import { WHATSAPP_LINK } from "@/lib/whatsapp"
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0011cc] px-4 py-3 text-white shadow-md">
+    <header className="sticky top-0 z-50 border-b border-white/10 bg-[#0011cc] px-4 py-4 text-white shadow-md">
       <div className="mx-auto flex max-w-5xl items-center justify-between gap-4">
         {/* Container das Logos */}
-        <div className="flex items-center gap-3">
-          {/* Logo Tvlar Motors - Aumentada e Centralizada */}
+        <div className="flex items-center gap-4">
+          {/* Logo Tvlar Motors - Super Aumentada */}
           <div className="flex items-center justify-center">
             <Image
               src="/logo-tvlar-motors.png" 
               alt="Tvlar Motors"
-              // Aumentamos os valores de otimização (não afetam o visual diretamente, mas evitam distorção)
-              width={160} // Antes 120
-              height={45} // Antes 35
-              // Aumentamos a classe de altura 'h-' do Tailwind para 'h-11' (era h-8)
-              className="h-11 w-auto object-contain drop-shadow-md" 
+              width={280}
+              height={80}
+              className="h-20 w-auto object-contain drop-shadow-md sm:h-24" 
               priority
             />
           </div>
 
-          {/* Divisória discreta (aumentada ligeiramente para acompanhar as logos) */}
-          <span className="h-8 w-px bg-white/30" aria-hidden="true" />
+          {/* Divisória discreta (acompanhando a nova altura) */}
+          <span className="h-14 w-px bg-white/30 sm:h-16" aria-hidden="true" />
 
-          {/* Logo Yamaha "Revs Your Heart" - Aumentada */}
+          {/* Logo Yamaha "Revs Your Heart" - Super Aumentada */}
           <div className="flex items-center justify-center">
             <Image
               src="/logo-yamaha.png"
               alt="Yamaha - Revs Your Heart"
-              // Aumentamos os valores de otimização
-              width={160} // Antes 120
-              height={45} // Antes 35
-              // Aumentamos a classe de altura 'h-' do Tailwind para 'h-11' (era h-8)
-              className="h-11 w-auto object-contain drop-shadow-md"
+              width={280}
+              height={80}
+              className="h-20 w-auto object-contain drop-shadow-md sm:h-24"
               priority
             />
           </div>
