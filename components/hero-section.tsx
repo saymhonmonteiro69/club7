@@ -1,54 +1,120 @@
+"use client"
+
+import { useState, useEffect } from "react"
 import Image from "next/image"
-import { MessageCircle } from "lucide-react"
-import { WHATSAPP_LINK } from "@/lib/whatsapp"
+import { ChevronLeft, ChevronRight } from "lucide-react"
+
+// Adicione ou mude o caminho das imagens da moto aqui
+const SLIDES = [
+  {
+    src: "/hero-moto-1.png", // Sua imagem original / principal
+    alt: "Yamaha Motors Tvlar - Modelo 1",
+  },
+  {
+    src: "/hero-moto-2.png", // Segunda foto do carrossel
+    alt: "Yamaha Motors Tvlar - Modelo 2",
+  },
+  {
+    src: "/hero-moto-3.png", // Terceira foto do carrossel
+    alt: "Yamaha Motors Tvlar - Modelo 3",
+  },
+]
 
 export function HeroSection() {
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  // Troca automática de imagem a cada 4 segundos
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % SLIDES.length)
+    }, 4000)
+    return () => clearInterval(timer)
+  }, [])
+
+  const prevSlide = () => {
+    setCurrentIndex((prev) => (prev === 0 ? SLIDES.length - 1 : prev - 1))
+  }
+
+  const nextSlide = () => {
+    setCurrentIndex((prev) => (prev + 1) % SLIDES.length)
+  }
+
   return (
-    <section className="bg-gradient-to-b from-[#0011cc] to-[#000a80] text-white py-12 md:py-20 px-4">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 overflow-hidden">
+    <section className="relative overflow-hidden bg-slate-950 py-12 sm:py-20 text-white">
+      <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         
-        {/* Lado Esquerdo: Textos */}
-        <div className="flex-1 space-y-6 text-center md:text-left z-10">
-          <span className="inline-block bg-yellow-400 text-slate-900 font-bold px-3 py-1 rounded-full text-xs uppercase tracking-wider">
-            ⚡ Aprovação rápida e sem burocracia
+        {/* Lado Esquerdo: Textos e Chamada */}
+        <div className="space-y-6 text-center md:text-left">
+          <span className="inline-block bg-amber-400/10 border border-amber-400/30 text-amber-400 font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full">
+            Sua Yamaha Zero KM
           </span>
-          <h1 className="text-3xl md:text-5xl font-extrabold leading-tight">
-            Sua Yamaha 0km a <br />
-            <span className="text-yellow-400">1 passo</span> de distância
+          <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
+            Conquiste sua moto própria com facilidade
           </h1>
-          <p className="text-white/80 text-sm md:text-base max-w-xl">
-            Chega de gastar todo mês com aluguel de moto ou depender dos outros para trabalhar. Com o <strong>Club 7</strong> e o <strong>Club 7 Turbo</strong> da Tvlar Motos Yamaha, você conquista sua moto zero quilômetro mesmo com o nome negativado — e ainda sai da rua do aluguel de uma vez por todas.
+          <p className="text-sm sm:text-base text-slate-300">
+            Aprovação facilitada, parcelas que cabem no seu bolso e condições especiais para você sair rodando hoje mesmo.
           </p>
-          <p className="text-xs text-white/60">
-            Ideal para motoboys, entregadores de aplicativo e quem precisa da moto no dia a dia. Preencha a simulação em menos de 2 minutos e nossa equipe entra em contato pelo WhatsApp.
-          </p>
-          <div className="pt-2">
+          <div>
             <a
-              href={WHATSAPP_LINK("Olá! Quero simular aprovação da minha Yamaha.")}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-yellow-400 hover:bg-yellow-300 text-slate-900 font-extrabold px-8 py-4 rounded-lg text-lg shadow-lg transition transform hover:-translate-y-0.5"
+              href="#simulacao"
+              className="inline-block bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold px-8 py-4 rounded-xl text-base transition shadow-lg shadow-amber-400/10 uppercase tracking-wide"
             >
-              SIMULAR AGORA
+              Simular Agora
             </a>
-          </div>
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 text-xs text-white/70 pt-2">
-            <span>✓ Sem consulta ao SPC/Serasa*</span>
-            <span>✓ Retirada no mesmo dia</span>
           </div>
         </div>
 
-        {/* Lado Direito: Foto em Destaque */}
-        <div className="flex-1 flex justify-center w-full mt-6 md:mt-0">
-          <div className="relative w-full max-w-lg overflow-hidden rounded-2xl shadow-2xl border-2 border-white/20">
-            <Image
-              src="/yamaha-factor-hero.png"
-              alt="Yamaha Factor na Loja"
-              width={800}
-              height={600}
-              className="w-full h-auto object-cover transform hover:scale-105 transition duration-500"
-              priority
-            />
+        {/* Lado Direito: Carrossel de Fotos da Moto */}
+        <div className="relative group w-full max-w-lg mx-auto md:max-w-none flex items-center justify-center">
+          <div className="relative w-full aspect-[4/3] overflow-hidden rounded-2xl">
+            {SLIDES.map((slide, index) => (
+              <div
+                key={slide.src}
+                className={`absolute inset-0 transition-opacity duration-700 ease-in-out flex items-center justify-center ${
+                  index === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0"
+                }`}
+              >
+                <Image
+                  src={slide.src}
+                  alt={slide.alt}
+                  fill
+                  className="object-contain"
+                  priority={index === 0}
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Botões do Carrossel (Anterior / Próximo) */}
+          <button
+            onClick={prevSlide}
+            aria-label="Imagem anterior"
+            className="absolute left-2 z-20 bg-black/50 hover:bg-black/80 text-white p-2 rounded-full transition opacity-70 hover:opacity-100"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          <button
+            onClick={nextSlide}
+            aria-label="Próxima imagem"
+            className="absolute right-2 z-20 bg-black/50 hover:bg-black/80 text-white p-2 rounded-full transition opacity-70 hover:opacity-100"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
+
+          {/* Indicadores (Bolinhas do Carrossel) */}
+          <div className="absolute -bottom-4 z-20 flex gap-2 justify-center w-full">
+            {SLIDES.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                aria-label={`Ir para a imagem ${index + 1}`}
+                className={`h-2.5 rounded-full transition-all ${
+                  index === currentIndex
+                    ? "w-8 bg-amber-400"
+                    : "w-2.5 bg-white/40 hover:bg-white/70"
+                }`}
+              />
+            ))}
           </div>
         </div>
 
