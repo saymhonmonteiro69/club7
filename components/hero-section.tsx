@@ -1,21 +1,30 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Image from "next/image"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
+// Adicione ou mude o caminho das imagens da moto aqui
 const SLIDES = [
   {
-    src: "/yamaha-factor-hero.png",
-    alt: "Yamaha Factor",
+    src: "/hero-moto-1.png", // Sua imagem original / principal
+    alt: "Yamaha Motors Tvlar - Modelo 1",
+  },
+  {
+    src: "/hero-moto-2.png", // Segunda foto do carrossel
+    alt: "Yamaha Motors Tvlar - Modelo 2",
+  },
+  {
+    src: "/hero-moto-3.png", // Terceira foto do carrossel
+    alt: "Yamaha Motors Tvlar - Modelo 3",
   },
 ]
 
 export function HeroSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
 
+  // Troca automática de imagem a cada 4 segundos
   useEffect(() => {
-    if (SLIDES.length <= 1) return
-
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % SLIDES.length)
     }, 4000)
@@ -56,56 +65,57 @@ export function HeroSection() {
         </div>
 
         {/* Lado Direito: Carrossel de Fotos da Moto */}
-        <div className="relative group w-full max-w-lg mx-auto md:max-w-none flex items-center justify-center min-h-[280px]">
-          <div className="relative w-full aspect-[4/3] overflow-hidden rounded-2xl flex items-center justify-center">
+        <div className="relative group w-full max-w-lg mx-auto md:max-w-none flex items-center justify-center">
+          <div className="relative w-full aspect-[4/3] overflow-hidden rounded-2xl">
             {SLIDES.map((slide, index) => (
-              <img
-                key={index}
-                src={slide.src}
-                alt={slide.alt}
-                className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-700 ease-in-out ${
+              <div
+                key={slide.src}
+                className={`absolute inset-0 transition-opacity duration-700 ease-in-out flex items-center justify-center ${
                   index === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0"
+                }`}
+              >
+                <Image
+                  src={slide.src}
+                  alt={slide.alt}
+                  fill
+                  className="object-contain"
+                  priority={index === 0}
+                />
+              </div>
+            ))}
+          </div>
+
+          {/* Botões do Carrossel (Anterior / Próximo) */}
+          <button
+            onClick={prevSlide}
+            aria-label="Imagem anterior"
+            className="absolute left-2 z-20 bg-black/50 hover:bg-black/80 text-white p-2 rounded-full transition opacity-70 hover:opacity-100"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          <button
+            onClick={nextSlide}
+            aria-label="Próxima imagem"
+            className="absolute right-2 z-20 bg-black/50 hover:bg-black/80 text-white p-2 rounded-full transition opacity-70 hover:opacity-100"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
+
+          {/* Indicadores (Bolinhas do Carrossel) */}
+          <div className="absolute -bottom-4 z-20 flex gap-2 justify-center w-full">
+            {SLIDES.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                aria-label={`Ir para a imagem ${index + 1}`}
+                className={`h-2.5 rounded-full transition-all ${
+                  index === currentIndex
+                    ? "w-8 bg-amber-400"
+                    : "w-2.5 bg-white/40 hover:bg-white/70"
                 }`}
               />
             ))}
           </div>
-
-          {SLIDES.length > 1 && (
-            <>
-              <button
-                onClick={prevSlide}
-                type="button"
-                aria-label="Imagem anterior"
-                className="absolute left-2 z-20 bg-black/60 hover:bg-black/90 text-white p-2 rounded-full transition"
-              >
-                <ChevronLeft className="h-5 w-5" />
-              </button>
-              <button
-                onClick={nextSlide}
-                type="button"
-                aria-label="Próxima imagem"
-                className="absolute right-2 z-20 bg-black/60 hover:bg-black/90 text-white p-2 rounded-full transition"
-              >
-                <ChevronRight className="h-5 w-5" />
-              </button>
-
-              <div className="absolute -bottom-4 z-20 flex gap-2 justify-center w-full">
-                {SLIDES.map((_, index) => (
-                  <button
-                    key={index}
-                    type="button"
-                    onClick={() => setCurrentIndex(index)}
-                    aria-label={`Ir para imagem ${index + 1}`}
-                    className={`h-2.5 rounded-full transition-all ${
-                      index === currentIndex
-                        ? "w-8 bg-amber-400"
-                        : "w-2.5 bg-white/40 hover:bg-white/70"
-                    }`}
-                  />
-                ))}
-              </div>
-            </>
-          )}
         </div>
 
       </div>
