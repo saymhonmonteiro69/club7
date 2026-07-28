@@ -39,19 +39,19 @@ export function BenefitsSection() {
           </p>
         </div>
 
-        {/* Vídeo em formato de paisagem (16:9) logo abaixo do texto */}
+        {/* Container do Vídeo em Paisagem totalmente preenchido */}
         <div className="mb-10 max-w-3xl mx-auto">
-          <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border border-border bg-slate-950 flex items-center justify-center">
+          <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border border-border bg-slate-950">
             <video
               src="/video.mp4"
               controls
               playsInline
-              className="w-full h-full object-contain"
+              className="w-full h-full object-cover"
             />
           </div>
         </div>
 
-        {/* Cards de Benefícios (Mantidos 100% sem alterações) */}
+        {/* Cards de Benefícios */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {benefits.map((b) => (
             <div key={b.title} className="rounded-xl border border-border bg-secondary p-5 text-center sm:text-left">
