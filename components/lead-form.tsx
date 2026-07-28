@@ -1,89 +1,112 @@
-"use client"
+import { Check, Zap } from "lucide-react"
 
-import { useState, useEffect } from "react"
-import { WHATSAPP_LINK } from "@/lib/whatsapp"
-
-export function LeadForm() {
-  const [nome, setNome] = useState("")
-  const [whatsapp, setWhatsapp] = useState("")
-  const [plano, setPlano] = useState("club7")
-
-  // Detecta o plano vindo da URL (#simulacao?plano=...) ao clicar nos botões
-  useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash
-      if (hash.includes("plano=club7-turbo")) {
-        setPlano("club7-turbo")
-      } else if (hash.includes("plano=club7")) {
-        setPlano("club7")
-      }
-    }
-
-    handleHashChange()
-    window.addEventListener("hashchange", handleHashChange)
-    return () => window.removeEventListener("hashchange", handleHashChange)
-  }, [])
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    
-    const nomePlano = plano === "club7-turbo" ? "Club 7 Turbo" : "Club 7"
-    const mensagem = `Olá! Meu nome é ${nome}. Gostaria de fazer uma simulação do plano *${nomePlano}*. Meu WhatsApp para contato é: ${whatsapp}`
-    
-    // Abre o WhatsApp direto com os dados preenchidos
-    window.open(WHATSAPP_LINK(mensagem), "_blank")
-  }
-
+export function PlansSection() {
   return (
-    <form onSubmit={handleSubmit} className="bg-slate-900 border border-slate-800 p-6 sm:p-8 rounded-2xl space-y-4 text-white">
-      <div>
-        <label className="block text-xs font-bold uppercase text-slate-300 mb-1">
-          Seu Nome Completo
-        </label>
-        <input
-          type="text"
-          required
-          placeholder="Ex: João Silva"
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
-          className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-amber-400"
-        />
-      </div>
+    <section id="planos" className="py-16 bg-slate-950 text-white">
+      <div className="max-w-6xl mx-auto px-4">
+        
+        {/* Cabeçalho da Seção */}
+        <div className="text-center max-w-3xl mx-auto mb-12 space-y-4">
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+            Escolha o plano perfeito para você
+          </h2>
+          <p className="text-sm sm:text-base text-slate-300">
+            Seja para se planejar com calma ou para começar a trabalhar hoje mesmo, a Tvlar Motos tem uma condição feita sob medida para a sua realidade. Compare os dois planos e escolha o seu.
+          </p>
+        </div>
 
-      <div>
-        <label className="block text-xs font-bold uppercase text-slate-300 mb-1">
-          Seu WhatsApp
-        </label>
-        <input
-          type="tel"
-          required
-          placeholder="(92) 99999-9999"
-          value={whatsapp}
-          onChange={(e) => setWhatsapp(e.target.value)}
-          className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-amber-400"
-        />
-      </div>
+        {/* Grid dos Cards de Planos */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch max-w-4xl mx-auto">
+          
+          {/* Plano Club 7 */}
+          <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 sm:p-8 flex flex-col justify-between space-y-6">
+            <div className="space-y-4">
+              <h3 className="text-2xl font-bold text-blue-500">Club 7</h3>
+              <p className="text-sm text-slate-300 leading-relaxed">
+                Para quem quer se planejar, economizar e conquistar a moto própria com parcelas que cabem no orçamento.
+              </p>
+              
+              <ul className="space-y-3 pt-2 text-sm text-slate-200">
+                <li className="flex items-start gap-2">
+                  <Check className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
+                  <span className="font-bold">Sem análise de SPC/Serasa</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
+                  <span>Liberação garantida conforme contrato</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
+                  <span>Parcelas facilitadas no boleto</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
+                  <span>Ideal para quem quer sair do aluguel com segurança</span>
+                </li>
+              </ul>
+            </div>
 
-      <div>
-        <label className="block text-xs font-bold uppercase text-slate-300 mb-1">
-          Plano de Interesse
-        </label>
-        <select
-          value={plano}
-          onChange={(e) => setPlano(e.target.value)}
-          className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-amber-400"
-        >
-          <option value="club7">Club 7 (Planejamento / Economia)</option>
-          <option value="club7-turbo">Club 7 Turbo (Saia de moto na hora)</option>
-        </select>
-      </div>
+            {/* Botão com destino direto para o formulário (#simulacao) */}
+            <a
+              href="#simulacao"
+              className="w-full text-center bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 px-6 rounded-xl transition shadow-lg block"
+            >
+              QUERO O CLUB 7
+            </a>
+          </div>
 
-      <button
-        type="submit"
-        className="w-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold py-3.5 rounded-lg transition shadow-lg text-sm uppercase tracking-wide mt-2"
-      >
-        Enviar Simulação Grátis
-      </button>
-    </form>
+          {/* Plano Club 7 Turbo (Destaque) */}
+          <div className="relative bg-slate-900/90 border-2 border-amber-400/80 rounded-2xl p-6 sm:p-8 flex flex-col justify-between space-y-6 shadow-xl shadow-amber-500/5">
+            
+            {/* Tag MAIS PROCURADO */}
+            <div className="absolute -top-3.5 right-6 bg-amber-400 text-slate-950 text-xs font-black uppercase px-3 py-1 rounded-full flex items-center gap-1 shadow-md">
+              <span>MAIS PROCURADO</span>
+              <Zap className="h-3.5 w-3.5 fill-current" />
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-2xl font-bold text-blue-400">Club 7 Turbo</h3>
+              <p className="text-sm text-slate-300 leading-relaxed">
+                Para quem precisa da moto para trabalhar hoje. Aprovação acelerada para você não perder nenhuma corrida.
+              </p>
+              
+              <ul className="space-y-3 pt-2 text-sm text-slate-200">
+                <li className="flex items-start gap-2 font-bold text-amber-400">
+                  <Zap className="h-5 w-5 shrink-0 mt-0.5 fill-current" />
+                  <span>Saia de moto na hora!</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="h-5 w-5 text-blue-400 shrink-0 mt-0.5" />
+                  <span>Aprovação ultrarrápida</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="h-5 w-5 text-blue-400 shrink-0 mt-0.5" />
+                  <span>Perfeito para motoboys e entregadores de app</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="h-5 w-5 text-blue-400 shrink-0 mt-0.5" />
+                  <span>Entrada facilitada + CNH</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Botão com destino direto para o formulário (#simulacao) */}
+            <a
+              href="#simulacao"
+              className="w-full text-center bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold py-3.5 px-6 rounded-xl transition shadow-lg block"
+            >
+              QUERO O CLUB 7 TURBO
+            </a>
+          </div>
+
+        </div>
+
+        {/* Rodapé explicativo */}
+        <p className="text-center text-xs text-slate-400 mt-10 max-w-xl mx-auto">
+          Não sabe qual escolher? Faça a simulação gratuita e nossa equipe indica o melhor plano para o seu perfil, sem compromisso.
+        </p>
+
+      </div>
+    </section>
   )
 }
