@@ -5,30 +5,30 @@ import { WHATSAPP_LINK } from "@/lib/whatsapp"
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#000d99]/95 backdrop-blur-md">
-      <div className="max-w-6xl mx-auto px-4 h-24 flex items-center justify-between">
+      <div className="max-w-6xl mx-auto px-4 h-44 sm:h-56 flex items-center justify-between">
         
-        {/* Container das Logos: Yamaha (esquerda, 1x) e Tvlar Motors (direita, 2x) */}
+        {/* Container das Logos: Yamaha (dobro do tamanho: h-16) e Tvlar Motors (3x maior: h-48) */}
         <div className="flex items-center gap-4 sm:gap-6">
           <Image
             src="/logo-yamaha.png"
             alt="Yamaha"
-            width={140}
-            height={40}
-            className="h-7 sm:h-8 w-auto object-contain"
+            width={280}
+            height={80}
+            className="h-12 sm:h-16 w-auto object-contain"
             priority
           />
-          <span className="h-10 sm:h-12 w-px bg-white/20" aria-hidden="true" />
+          <span className="h-24 sm:h-36 w-px bg-white/20" aria-hidden="true" />
           <Image
             src="/logo-tvlar-v2.png"
             alt="Tvlar Motors"
-            width={320}
-            height={100}
-            className="h-14 sm:h-16 w-auto object-contain"
+            width={960}
+            height={300}
+            className="h-32 sm:h-48 w-auto object-contain"
             priority
           />
         </div>
 
-        {/* Botão de Simulação no Cabeçalho */}
+        {/* Botão de Simulação */}
         <a
           href={WHATSAPP_LINK("Olá! Quero fazer uma simulação rápida pelo site.")}
           target="_blank"
