@@ -2,88 +2,111 @@ import { Check, Zap } from "lucide-react"
 
 export function PlansSection() {
   return (
-    <section className="mx-auto max-w-5xl px-4 py-14">
-      <div className="mb-8 text-center">
-        <h2 className="text-balance text-2xl font-black text-tvlar-blue sm:text-3xl">
-          Escolha o plano perfeito para você
-        </h2>
-        <p className="mx-auto mt-2 max-w-2xl text-pretty text-sm leading-relaxed text-muted-foreground">
-          Seja para se planejar com calma ou para começar a trabalhar hoje mesmo, a Tvlar Motos tem uma condição feita
-          sob medida para a sua realidade. Compare os dois planos e escolha o seu.
+    <section id="planos" className="py-16 bg-slate-950 text-white">
+      <div className="max-w-6xl mx-auto px-4">
+        
+        {/* Cabeçalho da Seção */}
+        <div className="text-center max-w-3xl mx-auto mb-12 space-y-4">
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+            Escolha o plano perfeito para você
+          </h2>
+          <p className="text-sm sm:text-base text-slate-300">
+            Seja para se planejar com calma ou para começar a trabalhar hoje mesmo, a Tvlar Motos tem uma condição feita sob medida para a sua realidade. Compare os dois planos e escolha o seu.
+          </p>
+        </div>
+
+        {/* Grid dos Cards de Planos */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch max-w-4xl mx-auto">
+          
+          {/* Plano Club 7 */}
+          <div className="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 sm:p-8 flex flex-col justify-between space-y-6">
+            <div className="space-y-4">
+              <h3 className="text-2xl font-bold text-blue-500">Club 7</h3>
+              <p className="text-sm text-slate-300 leading-relaxed">
+                Para quem quer se planejar, economizar e conquistar a moto própria com parcelas que cabem no orçamento.
+              </p>
+              
+              <ul className="space-y-3 pt-2 text-sm text-slate-200">
+                <li className="flex items-start gap-2">
+                  <Check className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
+                  <span className="font-bold">Sem análise de SPC/Serasa</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
+                  <span>Liberação garantida conforme contrato</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
+                  <span>Parcelas facilitadas no boleto</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
+                  <span>Ideal para quem quer sair do aluguel com segurança</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Botão direcionando para o formulário */}
+            <a
+              href="#simulacao"
+              className="w-full text-center bg-blue-600 hover:bg-blue-500 text-white font-bold py-3.5 px-6 rounded-xl transition shadow-lg block"
+            >
+              QUERO O CLUB 7
+            </a>
+          </div>
+
+          {/* Plano Club 7 Turbo (Destaque) */}
+          <div className="relative bg-slate-900/90 border-2 border-amber-400/80 rounded-2xl p-6 sm:p-8 flex flex-col justify-between space-y-6 shadow-xl shadow-amber-500/5">
+            
+            {/* Tag MAIS PROCURADO */}
+            <div className="absolute -top-3.5 right-6 bg-amber-400 text-slate-950 text-xs font-black uppercase px-3 py-1 rounded-full flex items-center gap-1 shadow-md">
+              <span>MAIS PROCURADO</span>
+              <Zap className="h-3.5 w-3.5 fill-current" />
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-2xl font-bold text-blue-400">Club 7 Turbo</h3>
+              <p className="text-sm text-slate-300 leading-relaxed">
+                Para quem precisa da moto para trabalhar hoje. Aprovação acelerada para você não perder nenhuma corrida.
+              </p>
+              
+              <ul className="space-y-3 pt-2 text-sm text-slate-200">
+                <li className="flex items-start gap-2 font-bold text-amber-400">
+                  <Zap className="h-5 w-5 shrink-0 mt-0.5 fill-current" />
+                  <span>Saia de moto na hora!</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="h-5 w-5 text-blue-400 shrink-0 mt-0.5" />
+                  <span>Aprovação ultrarrápida</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="h-5 w-5 text-blue-400 shrink-0 mt-0.5" />
+                  <span>Perfeito para motoboys e entregadores de app</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check className="h-5 w-5 text-blue-400 shrink-0 mt-0.5" />
+                  <span>Entrada facilitada + CNH</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Botão direcionando para o formulário */}
+            <a
+              href="#simulacao"
+              className="w-full text-center bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold py-3.5 px-6 rounded-xl transition shadow-lg block"
+            >
+              QUERO O CLUB 7 TURBO
+            </a>
+          </div>
+
+        </div>
+
+        {/* Rodapé explicativo */}
+        <p className="text-center text-xs text-slate-400 mt-10 max-w-xl mx-auto">
+          Não sabe qual escolher? Faça a simulação gratuita e nossa equipe indica o melhor plano para o seu perfil, sem compromisso.
         </p>
+
       </div>
-
-      <div className="grid gap-6 md:grid-cols-2">
-        {/* Club 7 */}
-        <div className="relative flex flex-col rounded-2xl border border-border bg-card p-6 shadow-sm">
-          <h3 className="mb-1 text-2xl font-black text-tvlar-blue">Club 7</h3>
-          <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
-            Para quem quer se planejar, economizar e conquistar a moto própria com parcelas que cabem no orçamento.
-          </p>
-          <ul className="mb-6 flex-1 space-y-3 text-sm text-card-foreground">
-            <li className="flex items-start gap-2">
-              <Check className="mt-0.5 h-4 w-4 shrink-0 text-tvlar-blue" aria-hidden="true" />
-              <strong>Sem análise de SPC/Serasa</strong>
-            </li>
-            <li className="flex items-start gap-2">
-              <Check className="mt-0.5 h-4 w-4 shrink-0 text-tvlar-blue" aria-hidden="true" /> Liberação garantida
-              conforme contrato
-            </li>
-            <li className="flex items-start gap-2">
-              <Check className="mt-0.5 h-4 w-4 shrink-0 text-tvlar-blue" aria-hidden="true" /> Parcelas facilitadas no
-              boleto
-            </li>
-            <li className="flex items-start gap-2">
-              <Check className="mt-0.5 h-4 w-4 shrink-0 text-tvlar-blue" aria-hidden="true" /> Ideal para quem quer sair
-              do aluguel com segurança
-            </li>
-          </ul>
-          <a
-            href="#simular"
-            className="block rounded-xl bg-tvlar-blue py-3 text-center font-bold text-primary-foreground transition hover:bg-tvlar-blue-dark"
-          >
-            QUERO O CLUB 7
-          </a>
-        </div>
-
-        {/* Club 7 Turbo */}
-        <div className="relative flex flex-col rounded-2xl border-2 border-tvlar-yellow bg-card p-6 shadow-lg md:-translate-y-2">
-          <span className="absolute -top-3 right-4 inline-flex items-center gap-1 rounded-full bg-tvlar-yellow px-3 py-1 text-xs font-black uppercase text-tvlar-blue-dark">
-            Mais procurado <Zap className="h-3 w-3" aria-hidden="true" />
-          </span>
-          <h3 className="mb-1 text-2xl font-black text-tvlar-blue">Club 7 Turbo</h3>
-          <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
-            Para quem precisa da moto para trabalhar hoje. Aprovação acelerada para você não perder nenhuma corrida.
-          </p>
-          <ul className="mb-6 flex-1 space-y-3 text-sm text-card-foreground">
-            <li className="flex items-start gap-2">
-              <Zap className="mt-0.5 h-4 w-4 shrink-0 fill-tvlar-yellow text-tvlar-yellow" aria-hidden="true" />
-              <strong>Saia de moto na hora!</strong>
-            </li>
-            <li className="flex items-start gap-2">
-              <Check className="mt-0.5 h-4 w-4 shrink-0 text-tvlar-blue" aria-hidden="true" /> Aprovação ultrarrápida
-            </li>
-            <li className="flex items-start gap-2">
-              <Check className="mt-0.5 h-4 w-4 shrink-0 text-tvlar-blue" aria-hidden="true" /> Perfeito para motoboys e
-              entregadores de app
-            </li>
-            <li className="flex items-start gap-2">
-              <Check className="mt-0.5 h-4 w-4 shrink-0 text-tvlar-blue" aria-hidden="true" /> Entrada facilitada + CNH
-            </li>
-          </ul>
-          <a
-            href="#simular"
-            className="block rounded-xl bg-tvlar-yellow py-3 text-center font-black text-tvlar-blue-dark shadow-sm transition hover:brightness-105"
-          >
-            QUERO O CLUB 7 TURBO
-          </a>
-        </div>
-      </div>
-
-      <p className="mx-auto mt-6 max-w-2xl text-center text-xs leading-relaxed text-muted-foreground">
-        Não sabe qual escolher? Faça a simulação gratuita e nossa equipe indica o melhor plano para o seu perfil, sem
-        compromisso.
-      </p>
     </section>
   )
 }
