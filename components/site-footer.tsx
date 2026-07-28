@@ -7,7 +7,7 @@ export function SiteFooter() {
     <footer className="bg-[#000d99] py-12 text-white border-t border-white/10">
       <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 items-center text-left">
         
-        {/* Coluna 1: Yamaha menor (1x) à esquerda e Tvlar Motors 2x maior à direita */}
+        {/* Coluna 1: Yamaha (esquerda) e Tvlar Motors 4x MAIOR (direita) */}
         <div className="space-y-4">
           <div className="flex items-center gap-5">
             <Image
@@ -17,13 +17,13 @@ export function SiteFooter() {
               height={40}
               className="h-8 w-auto object-contain"
             />
-            <span className="h-10 w-px bg-white/20" aria-hidden="true" />
+            <span className="h-16 w-px bg-white/20" aria-hidden="true" />
             <Image
               src="/logo-tvlar-motors.png"
               alt="Tvlar Motors"
-              width={280}
-              height={80}
-              className="h-16 w-auto object-contain"
+              width={480}
+              height={140}
+              className="h-24 w-auto object-contain"
             />
           </div>
           <p className="text-xs text-white/80 leading-relaxed">
