@@ -8,12 +8,19 @@ export function LeadForm() {
   const [whatsapp, setWhatsapp] = useState("")
   const [cpf, setCpf] = useState("")
   const [cnhA, setCnhA] = useState("Sim")
+  const [modeloMoto, setModeloMoto] = useState("FZ15 FAZER ABS CONNECTED")
+  const [mensagemLivre, setMensagemLivre] = useState("")
   const [plano, setPlano] = useState("club7")
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     const nomePlano = plano === "club7-turbo" ? "Club 7 Turbo" : "Club 7"
-    const mensagem = `Olá! Meu nome é ${nome}.\nCPF: ${cpf}\nCNH A: ${cnhA}\nWhatsApp: ${whatsapp}\nPlano de Interesse: *${nomePlano}*`
+    
+    let mensagem = `Olá! Meu nome é ${nome}.\nCPF: ${cpf}\nCNH A: ${cnhA}\nWhatsApp: ${whatsapp}\nModelo de Interesse: ${modeloMoto}\nPlano de Interesse: *${nomePlano}*`
+    
+    if (mensagemLivre.trim() !== "") {
+      mensagem += `\nDúvida/Observação: ${mensagemLivre}`
+    }
     
     window.open(WHATSAPP_LINK(mensagem), "_blank")
   }
@@ -79,6 +86,31 @@ export function LeadForm() {
 
       <div>
         <label className="block text-xs font-bold uppercase text-slate-300 mb-1">
+          Modelo da Moto
+        </label>
+        <select
+          value={modeloMoto}
+          onChange={(e) => setModeloMoto(e.target.value)}
+          className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-amber-400"
+        >
+          <option value="FZ15 FAZER ABS CONNECTED">FZ15 FAZER ABS CONNECTED</option>
+          <option value="FZ25 FAZER ABS">FZ25 FAZER ABS</option>
+          <option value="FACTOR 150">FACTOR 150</option>
+          <option value="FACTOR 150 DX">FACTOR 150 DX</option>
+          <option value="YZF R15 ABS">YZF R15 ABS</option>
+          <option value="XTZ 250 LANDER ABS CONNECTED">XTZ 250 LANDER ABS CONNECTED</option>
+          <option value="XTZ 150 CROSSER S ABS">XTZ 150 CROSSER S ABS</option>
+          <option value="XTZ 150 CROSSER Z ABS">XTZ 150 CROSSER Z ABS</option>
+          <option value="AEROX ABS CONNECTED">AEROX ABS CONNECTED</option>
+          <option value="FLUO ABS HYBRID CONNECTED">FLUO ABS HYBRID CONNECTED</option>
+          <option value="NMAX CONNECTED 160 ABS">NMAX CONNECTED 160 ABS</option>
+          <option value="ZR HYBRID CONNECTED">ZR HYBRID CONNECTED</option>
+          <option value="TTR 230">TTR 230</option>
+        </select>
+      </div>
+
+      <div>
+        <label className="block text-xs font-bold uppercase text-slate-300 mb-1">
           Plano de Interesse
         </label>
         <select
@@ -91,6 +123,19 @@ export function LeadForm() {
         </select>
       </div>
 
+      <div>
+        <label className="block text-xs font-bold uppercase text-slate-300 mb-1">
+          Dúvidas ou Observações (Opcional)
+        </label>
+        <textarea
+          rows={3}
+          placeholder="Escreva aqui sua dúvida ou mensagem..."
+          value={mensagemLivre}
+          onChange={(e) => setMensagemLivre(e.target.value)}
+          className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-amber-400 resize-none"
+        />
+      </div>
+
       <button
         type="submit"
         className="w-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold py-3.5 rounded-lg transition shadow-lg text-sm uppercase tracking-wide mt-2"
@@ -100,3 +145,4 @@ export function LeadForm() {
     </form>
   )
 }
+
