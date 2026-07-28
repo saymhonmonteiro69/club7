@@ -1,49 +1,69 @@
 "use client"
 
+import { useState } from "react"
+import { WHATSAPP_LINK } from "@/lib/whatsapp"
+
 export function LeadForm() {
+  const [nome, setNome] = useState("")
+  const [whatsapp, setWhatsapp] = useState("")
+  const [plano, setPlano] = useState("club7")
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    const nomePlano = plano === "club7-turbo" ? "Club 7 Turbo" : "Club 7"
+    const mensagem = `Olá! Meu nome é ${nome}. Gostaria de fazer uma simulação do plano *${nomePlano}*. Meu WhatsApp é: ${whatsapp}`
+    window.open(WHATSAPP_LINK(mensagem), "_blank")
+  }
+
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault()
-        const formData = new FormData(e.currentTarget)
-        const nome = formData.get("nome")
-        const telefone = formData.get("telefone")
-        const mensagem = `Olá! Meu nome é ${nome}. Gostaria de fazer uma simulação.`
-        window.open(`https://wa.me/5592999999999?text=${encodeURIComponent(mensagem)}`, "_blank")
-      }}
-      className="bg-zinc-900 p-6 rounded-xl border border-zinc-800 space-y-4"
-    >
+    <form onSubmit={handleSubmit} className="bg-slate-900 border border-slate-800 p-6 sm:p-8 rounded-2xl space-y-4 text-white">
       <div>
-        <label className="block text-xs font-bold uppercase mb-1 text-zinc-300">
-          Nome Completo
+        <label className="block text-xs font-bold uppercase text-slate-300 mb-1">
+          Seu Nome Completo
         </label>
         <input
           type="text"
-          name="nome"
           required
-          placeholder="Seu nome"
-          className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-amber-400 text-white"
+          placeholder="Ex: João Silva"
+          value={nome}
+          onChange={(e) => setNome(e.target.value)}
+          className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-amber-400"
         />
       </div>
 
       <div>
-        <label className="block text-xs font-bold uppercase mb-1 text-zinc-300">
-          WhatsApp / Celular
+        <label className="block text-xs font-bold uppercase text-slate-300 mb-1">
+          Seu WhatsApp
         </label>
         <input
           type="tel"
-          name="telefone"
           required
           placeholder="(92) 99999-9999"
-          className="w-full bg-zinc-950 border border-zinc-800 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-amber-400 text-white"
+          value={whatsapp}
+          onChange={(e) => setWhatsapp(e.target.value)}
+          className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-amber-400"
         />
+      </div>
+
+      <div>
+        <label className="block text-xs font-bold uppercase text-slate-300 mb-1">
+          Plano de Interesse
+        </label>
+        <select
+          value={plano}
+          onChange={(e) => setPlano(e.target.value)}
+          className="w-full bg-slate-950 border border-slate-800 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-amber-400"
+        >
+          <option value="club7">Club 7 (Planejamento / Economia)</option>
+          <option value="club7-turbo">Club 7 Turbo (Saia de moto na hora)</option>
+        </select>
       </div>
 
       <button
         type="submit"
-        className="w-full bg-amber-400 hover:bg-amber-300 text-black font-bold py-3 rounded-lg text-sm transition uppercase"
+        className="w-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold py-3.5 rounded-lg transition shadow-lg text-sm uppercase tracking-wide mt-2"
       >
-        Simular Agora
+        Enviar Simulação Grátis
       </button>
     </form>
   )
