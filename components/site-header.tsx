@@ -7,7 +7,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#000d99]/95 backdrop-blur-md">
       <div className="max-w-6xl mx-auto px-4 h-28 sm:h-32 flex items-center justify-between">
         
-        {/* Container das Logos: Yamaha (esquerda) e Tvlar Motors (direita) proporcional */}
+        {/* Container das Logos */}
         <div className="flex items-center gap-3 sm:gap-5">
           <Image
             src="/logo-yamaha.png"
@@ -21,9 +21,9 @@ export function SiteHeader() {
           <Image
             src="/logo-tvlar-v2.png"
             alt="Tvlar Motors"
-            width={500}
-            height={150}
-            className="h-20 sm:h-24 w-auto object-contain"
+            width={600}
+            height={180}
+            className="h-28 sm:h-32 w-auto object-contain"
             priority
           />
         </div>
