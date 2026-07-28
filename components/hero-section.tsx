@@ -3,16 +3,15 @@
 import { useState, useEffect } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
-// Lista com as 7 fotos pré-configuradas. 
-// Basta enviar os arquivos com estes nomes para a pasta public:
+// Lista com os nomes e extensoes EXATOS das fotos do seu print:
 const SLIDES = [
   "/foto1.jpg",
-  "/foto2.jpg",
-  "/foto3.jpg",
-  "/foto4.jpg",
-  "/foto5.jpg",
-  "/foto6.jpg",
-  "/foto7.jpg",
+  "/foto2.jpeg",
+  "/foto3.jpeg",
+  "/foto4.jpeg",
+  "/foto5.jpeg",
+  "/foto6.jpeg",
+  "/foto7.jpeg",
 ]
 
 export function HeroSection() {
@@ -38,7 +37,7 @@ export function HeroSection() {
     <section className="bg-[#0017bf] text-white py-12 md:py-16">
       <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         
-        {/* Lado Esquerdo - Textos exatos */}
+        {/* Lado Esquerdo - Textos */}
         <div className="space-y-6">
           <div className="inline-flex items-center gap-2 bg-[#ffcc00] text-black font-extrabold text-xs uppercase px-3 py-1 rounded-full shadow">
             <span>⚡ APROVAÇÃO RÁPIDA E SEM BUROCRACIA</span>
@@ -72,7 +71,7 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* Lado Direito - Carrossel com borda arredondada */}
+        {/* Lado Direito - Carrossel */}
         <div className="relative group w-full">
           <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border-2 border-white/10 bg-slate-900">
             {SLIDES.map((src, index) => (
@@ -86,7 +85,6 @@ export function HeroSection() {
               />
             ))}
 
-            {/* Setas de navegação */}
             <button
               onClick={prevSlide}
               type="button"
@@ -102,7 +100,6 @@ export function HeroSection() {
               <ChevronRight className="h-5 w-5" />
             </button>
 
-            {/* Bolinhas indicadoras das 7 fotos */}
             <div className="absolute bottom-3 inset-x-0 z-20 flex justify-center gap-2">
               {SLIDES.map((_, index) => (
                 <button
