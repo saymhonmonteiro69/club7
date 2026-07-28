@@ -1,30 +1,25 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import Image from "next/image"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
-// Adicione ou mude o caminho das imagens da moto aqui
+// Lista com as 7 fotos pré-configuradas. 
+// Basta enviar os arquivos com estes nomes para a pasta public:
 const SLIDES = [
-  {
-    src: "/hero-moto-1.png", // Sua imagem original / principal
-    alt: "Yamaha Motors Tvlar - Modelo 1",
-  },
-  {
-    src: "/hero-moto-2.png", // Segunda foto do carrossel
-    alt: "Yamaha Motors Tvlar - Modelo 2",
-  },
-  {
-    src: "/hero-moto-3.png", // Terceira foto do carrossel
-    alt: "Yamaha Motors Tvlar - Modelo 3",
-  },
+  "/foto1.jpg",
+  "/foto2.jpg",
+  "/foto3.jpg",
+  "/foto4.jpg",
+  "/foto5.jpg",
+  "/foto6.jpg",
+  "/foto7.jpg",
 ]
 
 export function HeroSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
 
-  // Troca automática de imagem a cada 4 segundos
   useEffect(() => {
+    if (SLIDES.length <= 1) return
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % SLIDES.length)
     }, 4000)
@@ -40,81 +35,86 @@ export function HeroSection() {
   }
 
   return (
-    <section className="relative overflow-hidden bg-slate-950 py-12 sm:py-20 text-white">
+    <section className="bg-[#0017bf] text-white py-12 md:py-16">
       <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         
-        {/* Lado Esquerdo: Textos e Chamada */}
-        <div className="space-y-6 text-center md:text-left">
-          <span className="inline-block bg-amber-400/10 border border-amber-400/30 text-amber-400 font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full">
-            Sua Yamaha Zero KM
-          </span>
-          <h1 className="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
-            Conquiste sua moto própria com facilidade
+        {/* Lado Esquerdo - Textos exatos */}
+        <div className="space-y-6">
+          <div className="inline-flex items-center gap-2 bg-[#ffcc00] text-black font-extrabold text-xs uppercase px-3 py-1 rounded-full shadow">
+            <span>⚡ APROVAÇÃO RÁPIDA E SEM BUROCRACIA</span>
+          </div>
+
+          <h1 className="text-3xl sm:text-5xl font-black leading-tight tracking-tight">
+            Sua Yamaha 0km a <br />
+            <span className="text-[#ffcc00]">1 passo</span> de distância
           </h1>
-          <p className="text-sm sm:text-base text-slate-300">
-            Aprovação facilitada, parcelas que cabem no seu bolso e condições especiais para você sair rodando hoje mesmo.
+
+          <p className="text-sm sm:text-base text-slate-100 leading-relaxed">
+            Chega de gastar todo mês com aluguel de moto ou depender dos outros para trabalhar. Com o <strong className="font-bold">Club 7</strong> e o <strong className="font-bold">Club 7 Turbo</strong> da Tvlar Motos Yamaha, você conquista sua moto zero quilômetro mesmo com o nome negativado — e ainda sai da rua do aluguel de uma vez por todas.
           </p>
+
+          <p className="text-xs text-slate-200">
+            Ideal para motoboys, entregadores de aplicativo e quem precisa da moto no dia a dia. Preencha a simulação em menos de 2 minutos e nossa equipe entra em contato pelo WhatsApp.
+          </p>
+
           <div>
             <a
               href="#simulacao"
-              className="inline-block bg-amber-400 hover:bg-amber-300 text-slate-950 font-extrabold px-8 py-4 rounded-xl text-base transition shadow-lg shadow-amber-400/10 uppercase tracking-wide"
+              className="inline-block bg-[#ffcc00] hover:bg-yellow-400 text-black font-black text-sm uppercase px-8 py-4 rounded-xl shadow-lg transition"
             >
-              Simular Agora
+              SIMULAR AGORA
             </a>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-4 text-xs font-medium text-slate-200 pt-2">
+            <span>✓ Sem consulta ao SPC/Serasa*</span>
+            <span>✓ Retirada no mesmo dia</span>
           </div>
         </div>
 
-        {/* Lado Direito: Carrossel de Fotos da Moto */}
-        <div className="relative group w-full max-w-lg mx-auto md:max-w-none flex items-center justify-center">
-          <div className="relative w-full aspect-[4/3] overflow-hidden rounded-2xl">
-            {SLIDES.map((slide, index) => (
-              <div
-                key={slide.src}
-                className={`absolute inset-0 transition-opacity duration-700 ease-in-out flex items-center justify-center ${
-                  index === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0"
-                }`}
-              >
-                <Image
-                  src={slide.src}
-                  alt={slide.alt}
-                  fill
-                  className="object-contain"
-                  priority={index === 0}
-                />
-              </div>
-            ))}
-          </div>
-
-          {/* Botões do Carrossel (Anterior / Próximo) */}
-          <button
-            onClick={prevSlide}
-            aria-label="Imagem anterior"
-            className="absolute left-2 z-20 bg-black/50 hover:bg-black/80 text-white p-2 rounded-full transition opacity-70 hover:opacity-100"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-          <button
-            onClick={nextSlide}
-            aria-label="Próxima imagem"
-            className="absolute right-2 z-20 bg-black/50 hover:bg-black/80 text-white p-2 rounded-full transition opacity-70 hover:opacity-100"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
-
-          {/* Indicadores (Bolinhas do Carrossel) */}
-          <div className="absolute -bottom-4 z-20 flex gap-2 justify-center w-full">
-            {SLIDES.map((_, index) => (
-              <button
+        {/* Lado Direito - Carrossel com borda arredondada */}
+        <div className="relative group w-full">
+          <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl border-2 border-white/10 bg-slate-900">
+            {SLIDES.map((src, index) => (
+              <img
                 key={index}
-                onClick={() => setCurrentIndex(index)}
-                aria-label={`Ir para a imagem ${index + 1}`}
-                className={`h-2.5 rounded-full transition-all ${
-                  index === currentIndex
-                    ? "w-8 bg-amber-400"
-                    : "w-2.5 bg-white/40 hover:bg-white/70"
+                src={src}
+                alt={`Yamaha Moto ${index + 1}`}
+                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+                  index === currentIndex ? "opacity-100 z-10" : "opacity-0 z-0"
                 }`}
               />
             ))}
+
+            {/* Setas de navegação */}
+            <button
+              onClick={prevSlide}
+              type="button"
+              className="absolute left-3 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-black/80 text-white p-2 rounded-full transition"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button
+              onClick={nextSlide}
+              type="button"
+              className="absolute right-3 top-1/2 -translate-y-1/2 z-20 bg-black/50 hover:bg-black/80 text-white p-2 rounded-full transition"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+
+            {/* Bolinhas indicadoras das 7 fotos */}
+            <div className="absolute bottom-3 inset-x-0 z-20 flex justify-center gap-2">
+              {SLIDES.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentIndex(index)}
+                  type="button"
+                  className={`h-2 rounded-full transition-all ${
+                    index === currentIndex ? "w-6 bg-[#ffcc00]" : "w-2 bg-white/50"
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         </div>
 
