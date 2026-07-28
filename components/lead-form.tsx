@@ -11,18 +11,51 @@ export function LeadForm() {
   const [modeloMoto, setModeloMoto] = useState("FZ15 FAZER ABS CONNECTED")
   const [mensagemLivre, setMensagemLivre] = useState("")
   const [plano, setPlano] = useState("club7")
+  const [enviado, setEnviado] = useState(false)
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Função para definir a saudação conforme a hora do dia
+    const hora = new Date().getHours()
+    let saudacao = "Olá! Boa noite!"
+    if (hora >= 5 && hora < 12) {
+      saudacao = "Olá! Bom dia!"
+    } else if (hora >= 12 && hora < 18) {
+      saudacao = "Olá! Boa tarde!"
+    }
+
     const nomePlano = plano === "club7-turbo" ? "Club 7 Turbo" : "Club 7"
     
-    let mensagem = `Olá! Meu nome é ${nome}.\nCPF: ${cpf}\nCNH A: ${cnhA}\nWhatsApp: ${whatsapp}\nModelo de Interesse: ${modeloMoto}\nPlano de Interesse: *${nomePlano}*`
+    let mensagem = `${saudacao} Meu nome é ${nome}.\nCPF: ${cpf}\nCNH A: ${cnhA}\nWhatsApp: ${whatsapp}\nModelo de Interesse: ${modeloMoto}\nPlano de Interesse: *${nomePlano}*`
     
     if (mensagemLivre.trim() !== "") {
       mensagem += `\nDúvida/Observação: ${mensagemLivre}`
     }
     
+    // Exibe a mensagem de sucesso na tela
+    setEnviado(true)
+
+    // Abre o WhatsApp em nova aba
     window.open(WHATSAPP_LINK(mensagem), "_blank")
+  }
+
+  if (enviado) {
+    return (
+      <div className="bg-slate-900 border border-emerald-500/50 p-8 rounded-2xl text-center space-y-4 text-white shadow-xl">
+        <div className="text-5xl">✅</div>
+        <h3 className="text-2xl font-bold text-emerald-400">Simulação Gerada com Sucesso!</h3>
+        <p className="text-sm text-slate-300">
+          Você está sendo redirecionado para o WhatsApp da nossa equipe para finalizar o seu atendimento.
+        </p>
+        <button
+          onClick={() => setEnviado(false)}
+          className="text-xs text-slate-400 underline hover:text-white pt-2 transition"
+        >
+          Enviar outra simulação
+        </button>
+      </div>
+    )
   }
 
   return (
@@ -145,4 +178,3 @@ export function LeadForm() {
     </form>
   )
 }
-
