@@ -7,7 +7,7 @@ export function SiteFooter() {
     <footer className="bg-[#000d99] py-12 text-white border-t border-white/10">
       <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 items-center text-left">
         
-        {/* Coluna 1: Yamaha (esquerda) e Tvlar Motors 4x MAIOR (direita) */}
+        {/* Coluna 1: Yamaha (esquerda) e Tvlar Motors sem fundo (direita) */}
         <div className="space-y-4">
           <div className="flex items-center gap-5">
             <Image
@@ -19,7 +19,7 @@ export function SiteFooter() {
             />
             <span className="h-16 w-px bg-white/20" aria-hidden="true" />
             <Image
-              src="/logo-tvlar-motors.png"
+              src="/logo-tvlar-v2.png"
               alt="Tvlar Motors"
               width={480}
               height={140}
@@ -31,7 +31,7 @@ export function SiteFooter() {
           </p>
         </div>
 
-        {/* Coluna 2: Informações de Atendimento em Manaus */}
+        {/* Coluna 2: Informações de Atendimento */}
         <div className="space-y-3">
           <h3 className="text-sm font-bold uppercase tracking-wider text-yellow-400">
             Atendimento
@@ -48,7 +48,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        {/* Coluna 3: Chamada para Fale Conosco */}
+        {/* Coluna 3: Fale com a gente */}
         <div className="space-y-3">
           <h3 className="text-sm font-bold uppercase tracking-wider text-yellow-400">
             Fale com a gente
@@ -66,7 +66,6 @@ export function SiteFooter() {
 
       </div>
 
-      {/* Direitos Autorais e Rodapé Inferior */}
       <div className="max-w-6xl mx-auto px-4 mt-10 pt-6 border-t border-white/10 text-center text-xs text-white/50">
         <p>© {new Date().getFullYear()} Tvlar Motors Yamaha. Todos os direitos reservados.</p>
       </div>
