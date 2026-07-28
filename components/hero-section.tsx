@@ -3,17 +3,11 @@
 import { useState, useEffect } from "react"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 
-// Lista de fotos do carrossel:
 const SLIDES = [
   {
     src: "/yamaha-factor-hero.png",
     alt: "Yamaha Factor",
   },
-  // Quando adicionar novas fotos na pasta public, adicione as linhas abaixo com o nome da nova foto:
-  // {
-  //   src: "/nome-da-sua-nova-foto.png",
-  //   alt: "Nome da Moto",
-  // },
 ]
 
 export function HeroSection() {
@@ -76,7 +70,6 @@ export function HeroSection() {
             ))}
           </div>
 
-          {/* Botões do Carrossel (só exibem se houver mais de 1 foto) */}
           {SLIDES.length > 1 && (
             <>
               <button
@@ -96,7 +89,6 @@ export function HeroSection() {
                 <ChevronRight className="h-5 w-5" />
               </button>
 
-              {/* Indicadores (Bolinhas) */}
               <div className="absolute -bottom-4 z-20 flex gap-2 justify-center w-full">
                 {SLIDES.map((_, index) => (
                   <button
