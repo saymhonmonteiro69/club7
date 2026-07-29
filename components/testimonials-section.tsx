@@ -3,30 +3,11 @@
 import { useState, useEffect } from "react"
 import { Star } from "lucide-react"
 
-// Dividimos as fotos entre os quadros de carrossel
-const imagesListA = [
-  "/entrega1.jpg",
-  "/entrega2.jpg",
-  "/entrega3.jpg",
-]
-
-const imagesListB = [
-  "/entrega4.jpg",
-  "/entrega5.jpg",
-  "/entrega6.jpg",
-]
-
-const imagesListC = [
-  "/entrega7.jpg",
-  "/entrega8.jpg",
-  "/entrega9.jpg",
-]
-
-const imagesListD = [
-  "/entrega1.jpg",
-  "/entrega5.jpg",
-  "/entrega9.jpg",
-]
+// Distribuição exclusiva das 9 fotos para que nenhum card repita a foto do outro
+const imagesListA = ["/entrega1.jpg", "/entrega2.jpg"]
+const imagesListB = ["/entrega3.jpg", "/entrega4.jpg"]
+const imagesListC = ["/entrega5.jpg", "/entrega6.jpg"]
+const imagesListD = ["/entrega7.jpg", "/entrega8.jpg", "/entrega9.jpg"]
 
 export function TestimonialsSection() {
   const [indexA, setIndexA] = useState(0)
@@ -77,7 +58,7 @@ export function TestimonialsSection() {
             </div>
           </div>
 
-          {/* CAIXA 2 (Carrossel A - Fotos 1, 2, 3) */}
+          {/* CAIXA 2 (Linha 1, Card de Imagem 1: Fotos 1 e 2) */}
           <div className="rounded-2xl border border-border bg-card p-2 flex flex-col justify-between shadow-sm overflow-hidden h-[240px]">
             <div className="relative w-full h-full rounded-xl overflow-hidden bg-slate-900">
               <img
@@ -109,7 +90,7 @@ export function TestimonialsSection() {
             </div>
           </div>
 
-          {/* CAIXA 4 (Carrossel B - Fotos 4, 5, 6) */}
+          {/* CAIXA 4 (Linha 1, Card de Imagem 2: Fotos 3 e 4) */}
           <div className="rounded-2xl border border-border bg-card p-2 flex flex-col justify-between shadow-sm overflow-hidden h-[240px]">
             <div className="relative w-full h-full rounded-xl overflow-hidden bg-slate-900">
               <img
@@ -125,7 +106,7 @@ export function TestimonialsSection() {
 
           {/* --- LINHA 2 --- */}
 
-          {/* CAIXA 5 / Linha 2 Caixa 1 (1º QUADRO DE ENTREGAS DA LINHA 2) */}
+          {/* CAIXA 5 / Linha 2 Caixa 1 (Card de Imagem 3: Fotos 5 e 6) */}
           <div className="rounded-2xl border border-border bg-card p-2 flex flex-col justify-between shadow-sm overflow-hidden h-[240px]">
             <div className="relative w-full h-full rounded-xl overflow-hidden bg-slate-900">
               <img
@@ -157,7 +138,7 @@ export function TestimonialsSection() {
             </div>
           </div>
 
-          {/* CAIXA 7 / Linha 2 Caixa 3 (2º QUADRO DE ENTREGAS DA LINHA 2) */}
+          {/* CAIXA 7 / Linha 2 Caixa 3 (Card de Imagem 4: Fotos 7, 8 e 9) */}
           <div className="rounded-2xl border border-border bg-card p-2 flex flex-col justify-between shadow-sm overflow-hidden h-[240px]">
             <div className="relative w-full h-full rounded-xl overflow-hidden bg-slate-900">
               <img
