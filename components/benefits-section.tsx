@@ -1,4 +1,4 @@
-import { ShieldAlert, Zap, Key, FileCheck } from "lucide-react"
+import { ShieldAlert, Zap, Key, FileCheck, ClipboardList, MessageCircle } from "lucide-react"
 
 export function BenefitsSection() {
   const benefits = [
@@ -49,14 +49,15 @@ export function BenefitsSection() {
           </video>
         </div>
 
-        {/* DOIS BOTÕES LADO A LADO */}
+        {/* DOIS BOTÕES LADO A LADO COM ÍCONES E TEXTO CORRIGIDO */}
         <div className="mb-10 w-full flex flex-col sm:flex-row items-center justify-center gap-4 px-4">
           {/* Botão Formulário */}
           <a
             href="#simulacao"
-            className="w-full sm:w-auto text-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-6 py-3.5 rounded-xl shadow-md transition-all duration-200 hover:scale-105"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-6 py-3.5 rounded-xl shadow-md transition-all duration-200 hover:scale-105"
           >
-            preencha o formulario
+            <ClipboardList className="h-4 w-4" />
+            <span>Preencha o Formulário</span>
           </a>
 
           {/* Botão WhatsApp */}
@@ -64,9 +65,10 @@ export function BenefitsSection() {
             href="https://wa.me/5592994767946"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto text-center bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-6 py-3.5 rounded-xl shadow-md transition-all duration-200 hover:scale-105"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-6 py-3.5 rounded-xl shadow-md transition-all duration-200 hover:scale-105"
           >
-            simule agora.
+            <MessageCircle className="h-4 w-4 fill-white" />
+            <span>Simular Agora</span>
           </a>
         </div>
 
