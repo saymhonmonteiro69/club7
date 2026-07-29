@@ -3,29 +3,31 @@
 import { useState, useEffect } from "react"
 import { Star } from "lucide-react"
 
-// Lista de nomes exatos dos arquivos
+// Lista de nomes de arquivo limpos e sem caracteres especiais
 const imagesListA = [
-  "/entrega (1).png",
-  "/entrega (2).png",
-  "/entrega (3).png",
-  "/entrega (4).png",
-  "/entrega (5).png",
-  "/entrega (6).png",
+  "/entrega-1.png",
+  "/entrega-2.png",
+  "/entrega-3.png",
+  "/entrega-4.png",
+  "/entrega-5.png",
+  "/entrega-6.png",
 ]
 
+// Mesmas imagens em ordem invertida/diferente para a segunda caixa
 const imagesListB = [
-  "/entrega (4).png",
-  "/entrega (5).png",
-  "/entrega (6).png",
-  "/entrega (1).png",
-  "/entrega (2).png",
-  "/entrega (3).png",
+  "/entrega-4.png",
+  "/entrega-5.png",
+  "/entrega-6.png",
+  "/entrega-1.png",
+  "/entrega-2.png",
+  "/entrega-3.png",
 ]
 
 export function TestimonialsSection() {
   const [indexA, setIndexA] = useState(0)
   const [indexB, setIndexB] = useState(0)
 
+  // Troca automática de fotos a cada 3.5 segundos
   useEffect(() => {
     const timer = setInterval(() => {
       setIndexA((prev) => (prev + 1) % imagesListA.length)
@@ -44,7 +46,7 @@ export function TestimonialsSection() {
           Motos Yamaha. Veja o que alguns deles dizem sobre a experiência.
         </p>
 
-        {/* Grid de 8 caixas */}
+        {/* Grid ajustado para 8 caixas (4 colunas em telas grandes) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           
           {/* --- LINHA 1 --- */}
@@ -67,11 +69,11 @@ export function TestimonialsSection() {
             </div>
           </div>
 
-          {/* CAIXA 2 (Carrossel de Imagens A) */}
+          {/* CAIXA 2 (Carrossel de Imagens A) - NOVA POSIÇÃO PEDIDA */}
           <div className="rounded-2xl border border-border bg-card p-2 flex flex-col justify-between shadow-sm overflow-hidden h-[240px]">
             <div className="relative w-full h-full rounded-xl overflow-hidden bg-slate-900">
               <img
-                src={encodeURI(imagesListA[indexA])}
+                src={imagesListA[indexA]}
                 alt="Entrega Tvlar Motos"
                 className="w-full h-full object-cover transition-all duration-500"
               />
@@ -155,11 +157,11 @@ export function TestimonialsSection() {
             </div>
           </div>
 
-          {/* CAIXA 7 (Carrossel de Imagens B - Caixa 3 da Linha 2) */}
+          {/* CAIXA 7 (Carrossel de Imagens B) - NOVA POSIÇÃO PEDIDA */}
           <div className="rounded-2xl border border-border bg-card p-2 flex flex-col justify-between shadow-sm overflow-hidden h-[240px]">
             <div className="relative w-full h-full rounded-xl overflow-hidden bg-slate-900">
               <img
-                src={encodeURI(imagesListB[indexB])}
+                src={imagesListB[indexB]}
                 alt="Clientes Tvlar Motos"
                 className="w-full h-full object-cover transition-all duration-500"
               />
