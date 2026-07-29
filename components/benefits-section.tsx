@@ -39,14 +39,14 @@ export function BenefitsSection() {
           </p>
         </div>
 
-        {/* Container mais alto (aspect-[4/5] no mobile e 16:9 em telas maiores) */}
-        <div className="mb-10 max-w-xl sm:max-w-3xl mx-auto">
-          <div className="relative w-full aspect-[4/5] sm:aspect-video rounded-2xl overflow-hidden shadow-2xl border border-border bg-slate-950">
+        {/* Container do Vídeo Ajustado (Compacto no PC para mostrar o rosto) */}
+        <div className="mb-10 max-w-xs sm:max-w-sm mx-auto">
+          <div className="relative w-full aspect-[9/16] rounded-2xl overflow-hidden shadow-2xl border border-border bg-slate-950">
             <video
               src="/video.mp4"
               controls
               playsInline
-              className="w-full h-full object-cover object-top"
+              className="w-full h-full object-cover"
             />
           </div>
         </div>
