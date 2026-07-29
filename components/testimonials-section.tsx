@@ -101,7 +101,7 @@ export function TestimonialsSection() {
             </div>
           </div>
 
-          {/* CAIXA 4 (SUBSTITUÍDA POR CARROSSEL B - Fotos 4, 5, 6) */}
+          {/* CAIXA 4 (Carrossel B - Fotos 4, 5, 6) */}
           <div className="rounded-2xl border border-border bg-card p-2 flex flex-col justify-between shadow-sm overflow-hidden h-[240px]">
             <div className="relative w-full h-full rounded-xl overflow-hidden bg-slate-900">
               <img
@@ -117,39 +117,7 @@ export function TestimonialsSection() {
 
           {/* --- LINHA 2 --- */}
 
-          {/* CAIXA 5 / Caixa 1 da Linha 2 (SUBSTITUÍDA POR CARROSSEL C - Fotos 7, 8, 9) */}
-          <div className="rounded-2xl border border-border bg-card p-2 flex flex-col justify-between shadow-sm overflow-hidden h-[240px]">
-            <div className="relative w-full h-full rounded-xl overflow-hidden bg-slate-900">
-              <img
-                src={imagesListC[indexC]}
-                alt="Motos Entregues"
-                className="w-full h-full object-cover transition-all duration-500"
-              />
-              <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] font-bold text-white">
-                Motos Entregues 🔑
-              </div>
-            </div>
-          </div>
-
-          {/* CAIXA 6 (Depoimento Anderson M.) */}
-          <div className="rounded-2xl border border-border bg-card p-5 flex flex-col justify-between shadow-sm h-[240px]">
-            <div>
-              <div className="flex gap-1 mb-3 text-amber-400">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-amber-400" />
-                ))}
-              </div>
-              <p className="text-xs italic text-foreground leading-relaxed">
-                &quot;Tinha vergonha de tentar em outros lugares por causa da restrição. Aqui fui tratado com respeito e saí de moto nova. Melhor decisão que tomei.&quot;
-              </p>
-            </div>
-            <div className="pt-3 border-t border-border/40">
-              <p className="text-xs font-bold text-tvlar-blue">Anderson M.</p>
-              <p className="text-[10px] text-muted-foreground">Motoboy · Manaus</p>
-            </div>
-          </div>
-
-          {/* CAIXA 7 (Depoimento Carlos E.) */}
+          {/* CAIXA 5 / Linha 2 Caixa 1 (Depoimento Carlos E.) */}
           <div className="rounded-2xl border border-border bg-card p-5 flex flex-col justify-between shadow-sm h-[240px]">
             <div>
               <div className="flex gap-1 mb-3 text-amber-400">
@@ -167,7 +135,39 @@ export function TestimonialsSection() {
             </div>
           </div>
 
-          {/* CAIXA 8 (Depoimento Fábio R.) */}
+          {/* CAIXA 6 / Linha 2 Caixa 2 (Depoimento Anderson M.) */}
+          <div className="rounded-2xl border border-border bg-card p-5 flex flex-col justify-between shadow-sm h-[240px]">
+            <div>
+              <div className="flex gap-1 mb-3 text-amber-400">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-amber-400" />
+                ))}
+              </div>
+              <p className="text-xs italic text-foreground leading-relaxed">
+                &quot;Tinha vergonha de tentar em outros lugares por causa da restrição. Aqui fui tratado com respeito e saí de moto nova. Melhor decisão que tomei.&quot;
+              </p>
+            </div>
+            <div className="pt-3 border-t border-border/40">
+              <p className="text-xs font-bold text-tvlar-blue">Anderson M.</p>
+              <p className="text-[10px] text-muted-foreground">Motoboy · Manaus</p>
+            </div>
+          </div>
+
+          {/* CAIXA 7 / Linha 2 Caixa 3 (RESTAURADA: Carrossel C - Fotos 7, 8, 9) */}
+          <div className="rounded-2xl border border-border bg-card p-2 flex flex-col justify-between shadow-sm overflow-hidden h-[240px]">
+            <div className="relative w-full h-full rounded-xl overflow-hidden bg-slate-900">
+              <img
+                src={imagesListC[indexC]}
+                alt="Motos Entregues"
+                className="w-full h-full object-cover transition-all duration-500"
+              />
+              <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] font-bold text-white">
+                Motos Entregues 🔑
+              </div>
+            </div>
+          </div>
+
+          {/* CAIXA 8 / Linha 2 Caixa 4 (Depoimento Fábio R.) */}
           <div className="rounded-2xl border border-border bg-card p-5 flex flex-col justify-between shadow-sm h-[240px]">
             <div>
               <div className="flex gap-1 mb-3 text-amber-400">
