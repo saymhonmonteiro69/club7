@@ -49,15 +49,24 @@ export function BenefitsSection() {
           </video>
         </div>
 
-        {/* BOTÃO DE SIMULAÇÃO DIRETOCLICK */}
-        <div className="mb-10 w-full flex justify-center">
+        {/* DOIS BOTÕES LADO A LADO */}
+        <div className="mb-10 w-full flex flex-col sm:flex-row items-center justify-center gap-4 px-4">
+          {/* Botão Formulário */}
+          <a
+            href="#simulacao"
+            className="w-full sm:w-auto text-center bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm px-6 py-3.5 rounded-xl shadow-md transition-all duration-200 hover:scale-105"
+          >
+            preencha o formulario
+          </a>
+
+          {/* Botão WhatsApp */}
           <a
             href="https://wa.me/5592994767946"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-base px-8 py-3.5 rounded-xl shadow-md transition-all duration-200 hover:scale-105"
+            className="w-full sm:w-auto text-center bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-6 py-3.5 rounded-xl shadow-md transition-all duration-200 hover:scale-105"
           >
-            SIMULAR AGORA NO WHATSAPP
+            simule agora.
           </a>
         </div>
 
