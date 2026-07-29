@@ -39,14 +39,14 @@ export function BenefitsSection() {
           </p>
         </div>
 
-        {/* Container do Vídeo em Paisagem totalmente preenchido */}
-        <div className="mb-10 max-w-3xl mx-auto">
-          <div className="relative w-full aspect-video rounded-2xl overflow-hidden shadow-2xl border border-border bg-slate-950">
+        {/* Container mais alto (aspect-[4/5] no mobile e 16:9 em telas maiores) */}
+        <div className="mb-10 max-w-xl sm:max-w-3xl mx-auto">
+          <div className="relative w-full aspect-[4/5] sm:aspect-video rounded-2xl overflow-hidden shadow-2xl border border-border bg-slate-950">
             <video
               src="/video.mp4"
               controls
               playsInline
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover object-top"
             />
           </div>
         </div>
