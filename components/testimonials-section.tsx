@@ -1,74 +1,204 @@
+"use client"
+
+import { useState, useEffect } from "react"
+import Image from "next/image"
 import { Star } from "lucide-react"
 
-const testimonials = [
-  {
-    quote:
-      "Eu tava pagando quase R$ 400 por semana em moto alugada e quebrando a cabeça. No Club 7 consegui aprovar minha Factor e hoje estou pagando o que é MEU!",
-    author: "João P.",
-    role: "Entregador de app · Manaus",
-  },
-  {
-    quote:
-      "Estava com o nome sujo e achei que nunca ia conseguir. No Club 7 Turbo saí com a moto no mesmo dia. Recomendo demais a Tvlar!",
-    author: "Márcia S.",
-    role: "Motoboy · Manaus",
-  },
-  {
-    quote:
-      "Atendimento nota mil. Explicaram tudo pelo WhatsApp, sem enrolação, e em dois dias eu já estava rodando com a minha zero km trabalhando no delivery.",
-    author: "Carlos E.",
-    role: "Entregador · Cidade Nova",
-  },
-  {
-    quote:
-      "Fiz a simulação de madrugada e no dia seguinte já me chamaram. Parcela cabe no meu bolso e não precisei de fiador. Valeu demais, Tvlar Motos!",
-    author: "Renata L.",
-    role: "Autônoma · Região Metropolitana",
-  },
-  {
-    quote:
-      "Tinha vergonha de tentar em outros lugares por causa da restrição. Aqui fui tratado com respeito e saí de moto nova. Melhor decisão que tomei.",
-    author: "Anderson M.",
-    role: "Motoboy · Manaus",
-  },
-  {
-    quote:
-      "Saí do aluguel que me sugava todo mês. Hoje a moto é minha, faço minha manutenção e trabalho tranquilo. Recomendo o Club 7 pra todo colega de rua.",
-    author: "Fábio R.",
-    role: "Entregador de app · Manaus",
-  },
+// Lista com os nomes dos seus arquivos de imagem na pasta public/
+const imagesListA = [
+  "/entrega (1).png",
+  "/entrega (2).png",
+  "/entrega (3).png",
+  "/entrega (4).png",
+  "/entrega (5).png",
+  "/entrega (6).png",
+]
+
+// Mesmas imagens em ordem invertida/diferente para a segunda caixa
+const imagesListB = [
+  "/entrega (4).png",
+  "/entrega (5).png",
+  "/entrega (6).png",
+  "/entrega (1).png",
+  "/entrega (2).png",
+  "/entrega (3).png",
 ]
 
 export function TestimonialsSection() {
+  const [indexA, setIndexA] = useState(0)
+  const [indexB, setIndexB] = useState(0)
+
+  // Troca automática de fotos a cada 3.5 segundos
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndexA((prev) => (prev + 1) % imagesListA.length)
+      setIndexB((prev) => (prev + 1) % imagesListB.length)
+    }, 3500)
+    return () => clearInterval(timer)
+  }, [])
+
   return (
-    <section className="bg-secondary px-4 py-14">
-      <div className="mx-auto max-w-5xl">
-        <div className="mb-8 text-center">
-          <h2 className="text-balance text-2xl font-black text-tvlar-blue sm:text-3xl">Quem comprou, aprovou</h2>
-          <p className="mx-auto mt-2 max-w-2xl text-pretty text-sm leading-relaxed text-muted-foreground">
-            Centenas de trabalhadores da região de Manaus já trocaram o aluguel pela própria moto com a Tvlar Motos
-            Yamaha. Veja o que alguns deles dizem sobre a experiência.
-          </p>
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {testimonials.map((t) => (
-            <figure key={t.author} className="flex flex-col rounded-2xl bg-card p-6 text-left shadow-sm">
-              <div className="mb-3 flex gap-0.5" aria-label="Avaliação 5 de 5 estrelas">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-tvlar-yellow text-tvlar-yellow" aria-hidden="true" />
+    <section className="bg-background py-12 px-4 border-t border-border/40">
+      <div className="max-w-6xl mx-auto space-y-8">
+        
+        {/* Texto do topo (Mantido sem alterações) */}
+        <p className="text-center text-xs sm:text-sm text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+          Centenas de trabalhadores da região de Manaus já trocaram o aluguel pela própria moto com a Tvlar
+          Motos Yamaha. Veja o que alguns deles dizem sobre a experiência.
+        </p>
+
+        {/* Grid ajustado para 8 caixas (4 colunas em telas grandes) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          
+          {/* --- LINHA 1 --- */}
+
+          {/* CAIXA 1 (Carrossel de Imagens A) */}
+          <div className="rounded-2xl border border-border bg-card p-2 flex flex-col justify-between shadow-sm overflow-hidden h-[240px]">
+            <div className="relative w-full h-full rounded-xl overflow-hidden bg-slate-900">
+              <Image
+                src={imagesListA[indexA]}
+                alt="Entrega Tvlar Motos"
+                fill
+                className="object-cover transition-all duration-500"
+              />
+              <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] font-bold text-white">
+                Entregas Reais 🏍️
+              </div>
+            </div>
+          </div>
+
+          {/* CAIXA 2 (Depoimento João P.) */}
+          <div className="rounded-2xl border border-border bg-card p-5 flex flex-col justify-between shadow-sm h-[240px]">
+            <div>
+              <div className="flex gap-1 mb-3 text-amber-400">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-amber-400" />
                 ))}
               </div>
-              <blockquote className="mb-4 flex-1 text-sm italic leading-relaxed text-card-foreground">{`"${t.quote}"`}</blockquote>
-              <figcaption className="border-t border-border pt-3">
-                <span className="block text-sm font-bold text-tvlar-blue">{t.author}</span>
-                <span className="block text-xs text-muted-foreground">{t.role}</span>
-              </figcaption>
-            </figure>
-          ))}
+              <p className="text-xs italic text-foreground leading-relaxed">
+                &quot;Eu tava pagando quase R$ 400 por semana em moto alugada e quebrando a cabeça. No Club 7 consegui aprovar minha Factor e hoje estou pagando o que é MEU!&quot;
+              </p>
+            </div>
+            <div className="pt-3 border-t border-border/40">
+              <p className="text-xs font-bold text-tvlar-blue">João P.</p>
+              <p className="text-[10px] text-muted-foreground">Entregador de app · Manaus</p>
+            </div>
+          </div>
+
+          {/* CAIXA 3 (Depoimento Márcia S.) */}
+          <div className="rounded-2xl border border-border bg-card p-5 flex flex-col justify-between shadow-sm h-[240px]">
+            <div>
+              <div className="flex gap-1 mb-3 text-amber-400">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-amber-400" />
+                ))}
+              </div>
+              <p className="text-xs italic text-foreground leading-relaxed">
+                &quot;Estava com o nome sujo e achei que nunca ia conseguir. No Club 7 Turbo saí com a moto no mesmo dia. Recomendo demais a Tvlar!&quot;
+              </p>
+            </div>
+            <div className="pt-3 border-t border-border/40">
+              <p className="text-xs font-bold text-tvlar-blue">Márcia S.</p>
+              <p className="text-[10px] text-muted-foreground">Motoboy · Manaus</p>
+            </div>
+          </div>
+
+          {/* CAIXA 4 (Depoimento Carlos E.) */}
+          <div className="rounded-2xl border border-border bg-card p-5 flex flex-col justify-between shadow-sm h-[240px]">
+            <div>
+              <div className="flex gap-1 mb-3 text-amber-400">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-amber-400" />
+                ))}
+              </div>
+              <p className="text-xs italic text-foreground leading-relaxed">
+                &quot;Atendimento nota mil. Explicaram tudo pelo WhatsApp, sem enrolação, e em dois dias eu já estava rodando com a minha zero km trabalhando no delivery.&quot;
+              </p>
+            </div>
+            <div className="pt-3 border-t border-border/40">
+              <p className="text-xs font-bold text-tvlar-blue">Carlos E.</p>
+              <p className="text-[10px] text-muted-foreground">Entregador · Cidade Nova</p>
+            </div>
+          </div>
+
+          {/* --- LINHA 2 --- */}
+
+          {/* CAIXA 5 (Depoimento Renata L.) */}
+          <div className="rounded-2xl border border-border bg-card p-5 flex flex-col justify-between shadow-sm h-[240px]">
+            <div>
+              <div className="flex gap-1 mb-3 text-amber-400">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-amber-400" />
+                ))}
+              </div>
+              <p className="text-xs italic text-foreground leading-relaxed">
+                &quot;Fiz a simulação de madrugada e no dia seguinte já me chamaram. Parcela cabe no meu bolso e não precisei de fiador. Valeu demais, Tvlar Motos!&quot;
+              </p>
+            </div>
+            <div className="pt-3 border-t border-border/40">
+              <p className="text-xs font-bold text-tvlar-blue">Renata L.</p>
+              <p className="text-[10px] text-muted-foreground">Autônoma · Região Metropolitana</p>
+            </div>
+          </div>
+
+          {/* CAIXA 6 (Carrossel de Imagens B - Coluna 2) */}
+          <div className="rounded-2xl border border-border bg-card p-2 flex flex-col justify-between shadow-sm overflow-hidden h-[240px]">
+            <div className="relative w-full h-full rounded-xl overflow-hidden bg-slate-900">
+              <Image
+                src={imagesListB[indexB]}
+                alt="Clientes Tvlar Motos"
+                fill
+                className="object-cover transition-all duration-500"
+              />
+              <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] font-bold text-white">
+                Motos Entregues 🔑
+              </div>
+            </div>
+          </div>
+
+          {/* CAIXA 7 (Depoimento Anderson M.) */}
+          <div className="rounded-2xl border border-border bg-card p-5 flex flex-col justify-between shadow-sm h-[240px]">
+            <div>
+              <div className="flex gap-1 mb-3 text-amber-400">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-amber-400" />
+                ))}
+              </div>
+              <p className="text-xs italic text-foreground leading-relaxed">
+                &quot;Tinha vergonha de tentar em outros lugares por causa da restrição. Aqui fui tratado com respeito e saí de moto nova. Melhor decisão que tomei.&quot;
+              </p>
+            </div>
+            <div className="pt-3 border-t border-border/40">
+              <p className="text-xs font-bold text-tvlar-blue">Anderson M.</p>
+              <p className="text-[10px] text-muted-foreground">Motoboy · Manaus</p>
+            </div>
+          </div>
+
+          {/* CAIXA 8 (Depoimento Fábio R.) */}
+          <div className="rounded-2xl border border-border bg-card p-5 flex flex-col justify-between shadow-sm h-[240px]">
+            <div>
+              <div className="flex gap-1 mb-3 text-amber-400">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-amber-400" />
+                ))}
+              </div>
+              <p className="text-xs italic text-foreground leading-relaxed">
+                &quot;Saí do aluguel que me sugava todo mês. Hoje a moto é minha, faço minha manutenção e trabalho tranquilo. Recomendo o Club 7 pra todo colega de rua.&quot;
+              </p>
+            </div>
+            <div className="pt-3 border-t border-border/40">
+              <p className="text-xs font-bold text-tvlar-blue">Fábio R.</p>
+              <p className="text-[10px] text-muted-foreground">Entregador de app · Manaus</p>
+            </div>
+          </div>
+
         </div>
-        <p className="mt-6 text-center text-xs text-muted-foreground">
+
+        {/* Rodapé da seção (Mantido sem alterações) */}
+        <p className="text-center text-[10px] text-muted-foreground">
           *Depoimentos de clientes reais. Nomes podem ser abreviados para preservar a privacidade.
         </p>
+
       </div>
     </section>
   )
