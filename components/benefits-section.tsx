@@ -58,7 +58,7 @@ export function BenefitsSection() {
               className="flex items-center justify-center gap-1.5 bg-tvlar-blue hover:bg-blue-900 text-white font-bold text-xs py-3 px-2 rounded-xl transition-colors text-center shadow-md"
             >
               <Send className="h-4 w-4 shrink-0" />
-              <span>Formulário</span>
+              <span>Preencha o formulário</span>
             </a>
 
             {/* Botão WhatsApp */}
@@ -69,7 +69,7 @@ export function BenefitsSection() {
               className="flex items-center justify-center gap-1.5 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs py-3 px-2 rounded-xl transition-colors text-center shadow-md"
             >
               <MessageCircle className="h-4 w-4 shrink-0" />
-              <span>WhatsApp</span>
+              <span>Simule agora</span>
             </a>
           </div>
         </div>
