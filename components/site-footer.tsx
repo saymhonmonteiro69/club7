@@ -20,9 +20,9 @@ export function SiteFooter() {
             <Image
               src="/logo-tvlar-v2.png"
               alt="Logo Tvlar Motors"
-              width={100}
-              height={32}
-              className="h-8 w-auto object-contain"
+              width={500} // Aumentado proporcionalmente para 5x (100 * 5)
+              height={160} // Aumentado proporcionalmente para 5x (32 * 5)
+              className="h-40 w-auto object-contain" // h-40 é 160px, que é 5x o tamanho h-8 original
             />
           </div>
           <p className="text-xs text-blue-100 leading-relaxed">
@@ -77,5 +77,3 @@ export function SiteFooter() {
     </footer>
   )
 }
-
-export default SiteFooter
