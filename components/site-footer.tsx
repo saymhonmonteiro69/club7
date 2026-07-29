@@ -18,7 +18,7 @@ export function SiteFooter() {
             />
             <div className="h-6 w-px bg-blue-700" />
             <Image
-              src="/logo-tvlar.png"
+              src="/logo-tvlar-v2.png"
               alt="Logo Tvlar Motors"
               width={100}
               height={32}
