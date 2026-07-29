@@ -1,10 +1,9 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import Image from "next/image"
 import { Star } from "lucide-react"
 
-// Lista com os nomes dos seus arquivos de imagem na pasta public/
+// Lista de nomes exatos dos arquivos
 const imagesListA = [
   "/entrega (1).png",
   "/entrega (2).png",
@@ -14,7 +13,6 @@ const imagesListA = [
   "/entrega (6).png",
 ]
 
-// Mesmas imagens em ordem invertida/diferente para a segunda caixa
 const imagesListB = [
   "/entrega (4).png",
   "/entrega (5).png",
@@ -28,7 +26,6 @@ export function TestimonialsSection() {
   const [indexA, setIndexA] = useState(0)
   const [indexB, setIndexB] = useState(0)
 
-  // Troca automática de fotos a cada 3.5 segundos
   useEffect(() => {
     const timer = setInterval(() => {
       setIndexA((prev) => (prev + 1) % imagesListA.length)
@@ -41,33 +38,18 @@ export function TestimonialsSection() {
     <section className="bg-background py-12 px-4 border-t border-border/40">
       <div className="max-w-6xl mx-auto space-y-8">
         
-        {/* Texto do topo (Mantido sem alterações) */}
+        {/* Texto do topo */}
         <p className="text-center text-xs sm:text-sm text-muted-foreground max-w-2xl mx-auto leading-relaxed">
           Centenas de trabalhadores da região de Manaus já trocaram o aluguel pela própria moto com a Tvlar
           Motos Yamaha. Veja o que alguns deles dizem sobre a experiência.
         </p>
 
-        {/* Grid ajustado para 8 caixas (4 colunas em telas grandes) */}
+        {/* Grid de 8 caixas */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           
           {/* --- LINHA 1 --- */}
 
-          {/* CAIXA 1 (Carrossel de Imagens A) */}
-          <div className="rounded-2xl border border-border bg-card p-2 flex flex-col justify-between shadow-sm overflow-hidden h-[240px]">
-            <div className="relative w-full h-full rounded-xl overflow-hidden bg-slate-900">
-              <Image
-                src={imagesListA[indexA]}
-                alt="Entrega Tvlar Motos"
-                fill
-                className="object-cover transition-all duration-500"
-              />
-              <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] font-bold text-white">
-                Entregas Reais 🏍️
-              </div>
-            </div>
-          </div>
-
-          {/* CAIXA 2 (Depoimento João P.) */}
+          {/* CAIXA 1 (Depoimento João P.) */}
           <div className="rounded-2xl border border-border bg-card p-5 flex flex-col justify-between shadow-sm h-[240px]">
             <div>
               <div className="flex gap-1 mb-3 text-amber-400">
@@ -82,6 +64,20 @@ export function TestimonialsSection() {
             <div className="pt-3 border-t border-border/40">
               <p className="text-xs font-bold text-tvlar-blue">João P.</p>
               <p className="text-[10px] text-muted-foreground">Entregador de app · Manaus</p>
+            </div>
+          </div>
+
+          {/* CAIXA 2 (Carrossel de Imagens A) */}
+          <div className="rounded-2xl border border-border bg-card p-2 flex flex-col justify-between shadow-sm overflow-hidden h-[240px]">
+            <div className="relative w-full h-full rounded-xl overflow-hidden bg-slate-900">
+              <img
+                src={encodeURI(imagesListA[indexA])}
+                alt="Entrega Tvlar Motos"
+                className="w-full h-full object-cover transition-all duration-500"
+              />
+              <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] font-bold text-white">
+                Entregas Reais 🏍️
+              </div>
             </div>
           </div>
 
@@ -141,22 +137,7 @@ export function TestimonialsSection() {
             </div>
           </div>
 
-          {/* CAIXA 6 (Carrossel de Imagens B - Coluna 2) */}
-          <div className="rounded-2xl border border-border bg-card p-2 flex flex-col justify-between shadow-sm overflow-hidden h-[240px]">
-            <div className="relative w-full h-full rounded-xl overflow-hidden bg-slate-900">
-              <Image
-                src={imagesListB[indexB]}
-                alt="Clientes Tvlar Motos"
-                fill
-                className="object-cover transition-all duration-500"
-              />
-              <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] font-bold text-white">
-                Motos Entregues 🔑
-              </div>
-            </div>
-          </div>
-
-          {/* CAIXA 7 (Depoimento Anderson M.) */}
+          {/* CAIXA 6 (Depoimento Anderson M.) */}
           <div className="rounded-2xl border border-border bg-card p-5 flex flex-col justify-between shadow-sm h-[240px]">
             <div>
               <div className="flex gap-1 mb-3 text-amber-400">
@@ -171,6 +152,20 @@ export function TestimonialsSection() {
             <div className="pt-3 border-t border-border/40">
               <p className="text-xs font-bold text-tvlar-blue">Anderson M.</p>
               <p className="text-[10px] text-muted-foreground">Motoboy · Manaus</p>
+            </div>
+          </div>
+
+          {/* CAIXA 7 (Carrossel de Imagens B - Caixa 3 da Linha 2) */}
+          <div className="rounded-2xl border border-border bg-card p-2 flex flex-col justify-between shadow-sm overflow-hidden h-[240px]">
+            <div className="relative w-full h-full rounded-xl overflow-hidden bg-slate-900">
+              <img
+                src={encodeURI(imagesListB[indexB])}
+                alt="Clientes Tvlar Motos"
+                className="w-full h-full object-cover transition-all duration-500"
+              />
+              <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] font-bold text-white">
+                Motos Entregues 🔑
+              </div>
             </div>
           </div>
 
@@ -194,7 +189,7 @@ export function TestimonialsSection() {
 
         </div>
 
-        {/* Rodapé da seção (Mantido sem alterações) */}
+        {/* Rodapé da seção */}
         <p className="text-center text-[10px] text-muted-foreground">
           *Depoimentos de clientes reais. Nomes podem ser abreviados para preservar a privacidade.
         </p>
