@@ -1,4 +1,4 @@
-import { ShieldAlert, Zap, Key, FileCheck } from "lucide-react"
+import { ShieldAlert, Zap, Key, FileCheck, MessageCircle, Send } from "lucide-react"
 
 const benefits = [
   {
@@ -39,8 +39,8 @@ export function BenefitsSection() {
           </p>
         </div>
 
-        {/* Container do Vídeo Ajustado (Compacto no PC para mostrar o rosto) */}
-        <div className="mb-10 max-w-xs sm:max-w-sm mx-auto">
+        {/* Container do Vídeo + Botões CTA Lado a Lado */}
+        <div className="mb-10 max-w-xs sm:max-w-sm mx-auto space-y-3">
           <div className="relative w-full aspect-[9/16] rounded-2xl overflow-hidden shadow-2xl border border-border bg-slate-950">
             <video
               src="/video.mp4"
@@ -48,6 +48,29 @@ export function BenefitsSection() {
               playsInline
               className="w-full h-full object-cover"
             />
+          </div>
+
+          {/* Botões Call To Action abaixo do vídeo */}
+          <div className="grid grid-cols-2 gap-2">
+            {/* Botão Formulário */}
+            <a
+              href="#simulacao"
+              className="flex items-center justify-center gap-1.5 bg-tvlar-blue hover:bg-blue-900 text-white font-bold text-xs py-3 px-2 rounded-xl transition-colors text-center shadow-md"
+            >
+              <Send className="h-4 w-4 shrink-0" />
+              <span>Formulário</span>
+            </a>
+
+            {/* Botão WhatsApp */}
+            <a
+              href="https://wa.me/5592994767946"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-1.5 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs py-3 px-2 rounded-xl transition-colors text-center shadow-md"
+            >
+              <MessageCircle className="h-4 w-4 shrink-0" />
+              <span>WhatsApp</span>
+            </a>
           </div>
         </div>
 
