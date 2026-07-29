@@ -3,33 +3,35 @@
 import { useState, useEffect } from "react"
 import { Star } from "lucide-react"
 
-// Lista de imagens apontando para as fotos .jpg da sua pasta public
+// Dividimos as 9 fotos entre os 3 quadros de carrossel
 const imagesListA = [
   "/entrega1.jpg",
   "/entrega2.jpg",
   "/entrega3.jpg",
-  "/entrega4.jpg",
-  "/entrega5.jpg",
-  "/entrega6.jpg",
 ]
 
 const imagesListB = [
   "/entrega4.jpg",
   "/entrega5.jpg",
   "/entrega6.jpg",
-  "/entrega1.jpg",
-  "/entrega2.jpg",
-  "/entrega3.jpg",
+]
+
+const imagesListC = [
+  "/entrega7.jpg",
+  "/entrega8.jpg",
+  "/entrega9.jpg",
 ]
 
 export function TestimonialsSection() {
   const [indexA, setIndexA] = useState(0)
   const [indexB, setIndexB] = useState(0)
+  const [indexC, setIndexC] = useState(0)
 
   useEffect(() => {
     const timer = setInterval(() => {
       setIndexA((prev) => (prev + 1) % imagesListA.length)
       setIndexB((prev) => (prev + 1) % imagesListB.length)
+      setIndexC((prev) => (prev + 1) % imagesListC.length)
     }, 3500)
     return () => clearInterval(timer)
   }, [])
@@ -44,7 +46,7 @@ export function TestimonialsSection() {
           Motos Yamaha. Veja o que alguns deles dizem sobre a experiência.
         </p>
 
-        {/* Grid de 8 caixas */}
+        {/* Grid de EXATAMENTE 8 caixas */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           
           {/* --- LINHA 1 --- */}
@@ -67,7 +69,7 @@ export function TestimonialsSection() {
             </div>
           </div>
 
-          {/* CAIXA 2 (Carrossel de Imagens A) */}
+          {/* CAIXA 2 (Carrossel A - Fotos 1, 2, 3) */}
           <div className="rounded-2xl border border-border bg-card p-2 flex flex-col justify-between shadow-sm overflow-hidden h-[240px]">
             <div className="relative w-full h-full rounded-xl overflow-hidden bg-slate-900">
               <img
@@ -99,41 +101,33 @@ export function TestimonialsSection() {
             </div>
           </div>
 
-          {/* CAIXA 4 (Depoimento Carlos E.) */}
-          <div className="rounded-2xl border border-border bg-card p-5 flex flex-col justify-between shadow-sm h-[240px]">
-            <div>
-              <div className="flex gap-1 mb-3 text-amber-400">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-amber-400" />
-                ))}
+          {/* CAIXA 4 (SUBSTITUÍDA POR CARROSSEL B - Fotos 4, 5, 6) */}
+          <div className="rounded-2xl border border-border bg-card p-2 flex flex-col justify-between shadow-sm overflow-hidden h-[240px]">
+            <div className="relative w-full h-full rounded-xl overflow-hidden bg-slate-900">
+              <img
+                src={imagesListB[indexB]}
+                alt="Realizando Sonhos"
+                className="w-full h-full object-cover transition-all duration-500"
+              />
+              <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] font-bold text-white">
+                Sonhos Realizados ✨
               </div>
-              <p className="text-xs italic text-foreground leading-relaxed">
-                &quot;Atendimento nota mil. Explicaram tudo pelo WhatsApp, sem enrolação, e em dois dias eu já estava rodando com a minha zero km trabalhando no delivery.&quot;
-              </p>
-            </div>
-            <div className="pt-3 border-t border-border/40">
-              <p className="text-xs font-bold text-tvlar-blue">Carlos E.</p>
-              <p className="text-[10px] text-muted-foreground">Entregador · Cidade Nova</p>
             </div>
           </div>
 
           {/* --- LINHA 2 --- */}
 
-          {/* CAIXA 5 (Depoimento Renata L.) */}
-          <div className="rounded-2xl border border-border bg-card p-5 flex flex-col justify-between shadow-sm h-[240px]">
-            <div>
-              <div className="flex gap-1 mb-3 text-amber-400">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-amber-400" />
-                ))}
+          {/* CAIXA 5 / Caixa 1 da Linha 2 (SUBSTITUÍDA POR CARROSSEL C - Fotos 7, 8, 9) */}
+          <div className="rounded-2xl border border-border bg-card p-2 flex flex-col justify-between shadow-sm overflow-hidden h-[240px]">
+            <div className="relative w-full h-full rounded-xl overflow-hidden bg-slate-900">
+              <img
+                src={imagesListC[indexC]}
+                alt="Motos Entregues"
+                className="w-full h-full object-cover transition-all duration-500"
+              />
+              <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] font-bold text-white">
+                Motos Entregues 🔑
               </div>
-              <p className="text-xs italic text-foreground leading-relaxed">
-                &quot;Fiz a simulação de madrugada e no dia seguinte já me chamaram. Parcela cabe no meu bolso e não precisei de fiador. Valeu demais, Tvlar Motos!&quot;
-              </p>
-            </div>
-            <div className="pt-3 border-t border-border/40">
-              <p className="text-xs font-bold text-tvlar-blue">Renata L.</p>
-              <p className="text-[10px] text-muted-foreground">Autônoma · Região Metropolitana</p>
             </div>
           </div>
 
@@ -155,17 +149,21 @@ export function TestimonialsSection() {
             </div>
           </div>
 
-          {/* CAIXA 7 (Carrossel de Imagens B) */}
-          <div className="rounded-2xl border border-border bg-card p-2 flex flex-col justify-between shadow-sm overflow-hidden h-[240px]">
-            <div className="relative w-full h-full rounded-xl overflow-hidden bg-slate-900">
-              <img
-                src={imagesListB[indexB]}
-                alt="Clientes Tvlar Motos"
-                className="w-full h-full object-cover transition-all duration-500"
-              />
-              <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] font-bold text-white">
-                Motos Entregues 🔑
+          {/* CAIXA 7 (Depoimento Carlos E.) */}
+          <div className="rounded-2xl border border-border bg-card p-5 flex flex-col justify-between shadow-sm h-[240px]">
+            <div>
+              <div className="flex gap-1 mb-3 text-amber-400">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-4 w-4 fill-amber-400" />
+                ))}
               </div>
+              <p className="text-xs italic text-foreground leading-relaxed">
+                &quot;Atendimento nota mil. Explicaram tudo pelo WhatsApp, sem enrolação, e em dois dias eu já estava rodando com a minha zero km trabalhando no delivery.&quot;
+              </p>
+            </div>
+            <div className="pt-3 border-t border-border/40">
+              <p className="text-xs font-bold text-tvlar-blue">Carlos E.</p>
+              <p className="text-[10px] text-muted-foreground">Entregador · Cidade Nova</p>
             </div>
           </div>
 
