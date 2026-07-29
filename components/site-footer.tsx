@@ -1,79 +1,53 @@
 import Image from "next/image"
-import { MapPin, Clock } from "lucide-react"
+import Link from "next/link"
 
-export function SiteFooter() {
+export function SiteHeader() {
   return (
-    <footer className="bg-tvlar-blue text-white py-12 px-4 border-t border-blue-900">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="container flex h-20 items-center justify-between px-4">
         
-        {/* Logos & Sobre */}
-        <div className="space-y-4">
-          <div className="flex items-center gap-4">
+        {/* Container das Logos */}
+        <div className="flex items-center gap-4">
+          {/* Logo Yamaha (Mantida no tamanho original) */}
+          <Link href="/" className="flex items-center space-x-2">
             <Image
               src="/logo-yamaha.png"
               alt="Logo Yamaha"
               width={110}
               height={32}
               className="h-8 w-auto object-contain"
+              priority
             />
-            <div className="h-6 w-px bg-blue-700" />
+          </Link>
+
+          <div className="h-8 w-px bg-border" />
+
+          {/* Logo Tvlar (Aumentada ~6x) */}
+          <Link href="/" className="flex items-center space-x-2">
             <Image
               src="/logo-tvlar-v2.png"
               alt="Logo Tvlar Motors"
-              width={100}
-              height={32}
-              className="h-8 w-auto object-contain"
+              width={600}
+              height={192}
+              className="h-24 sm:h-32 w-auto object-contain"
+              priority
             />
-          </div>
-          <p className="text-xs text-blue-100 leading-relaxed">
-            Realizando o sonho da moto própria para os trabalhadores de Manaus e região metropolitana.
-          </p>
+          </Link>
         </div>
 
-        {/* Atendimento com Endereço Interativo */}
-        <div className="space-y-4">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-amber-400">
-            ATENDIMENTO
-          </h4>
-          <ul className="space-y-2 text-xs text-blue-100">
-            <li className="flex items-start gap-2">
-              <MapPin className="h-4 w-4 shrink-0 text-amber-400 mt-0.5" />
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=Tvlar+Motos+Av.+Max+Teixeira+3200+Manaus"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-white hover:underline transition-colors"
-              >
-                <span>Av. Max Teixeira, 3200 - Cidade Nova, Manaus - AM</span>
-              </a>
-            </li>
-            <li className="flex items-center gap-2">
-              <Clock className="h-4 w-4 shrink-0 text-amber-400" />
-              <span>Segunda a sábado, das 8h às 18h</span>
-            </li>
-          </ul>
-        </div>
-
-        {/* Chamada para Ação */}
-        <div className="space-y-4">
-          <h4 className="text-xs font-bold uppercase tracking-wider text-amber-400">
-            FALE COM A GENTE
-          </h4>
+        {/* Botão de Contato / Simulação no Cabeçalho (Mantido igual) */}
+        <div>
           <a
             href="https://wa.me/5592994767946"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold px-4 py-2.5 rounded-lg transition-colors"
+            className="inline-flex items-center justify-center rounded-lg bg-emerald-500 px-4 py-2 text-xs font-bold text-white shadow transition-colors hover:bg-emerald-600"
           >
-            <span>Simular no WhatsApp</span>
+            Simular Agora
           </a>
         </div>
 
       </div>
-
-      <div className="mt-12 pt-6 border-t border-blue-900/50 text-center text-[10px] text-blue-200/80">
-        © {new Date().getFullYear()} Tvlar Motors Yamaha. Todos os direitos reservados.
-      </div>
-    </footer>
+    </header>
   )
 }
