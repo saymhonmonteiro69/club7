@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { MapPin, Clock } from "lucide-react"
 
 export function SiteFooter() {
@@ -5,11 +6,24 @@ export function SiteFooter() {
     <footer className="bg-tvlar-blue text-white py-12 px-4 border-t border-blue-900">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         
-        {/* Marca / Sobre */}
-        <div className="space-y-3">
-          <div className="flex items-center gap-2">
-            <span className="font-black text-xl tracking-tight text-white">YAMAHA</span>
-            <span className="text-xs text-blue-200">| Tvlar Motos</span>
+        {/* Logos & Sobre */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-4">
+            <Image
+              src="/logo-yamaha.png"
+              alt="Logo Yamaha"
+              width={110}
+              height={32}
+              className="h-8 w-auto object-contain"
+            />
+            <div className="h-6 w-px bg-blue-700" />
+            <Image
+              src="/logo-tvlar.png"
+              alt="Logo Tvlar Motors"
+              width={100}
+              height={32}
+              className="h-8 w-auto object-contain"
+            />
           </div>
           <p className="text-xs text-blue-100 leading-relaxed">
             Realizando o sonho da moto própria para os trabalhadores de Manaus e região metropolitana.
@@ -46,7 +60,9 @@ export function SiteFooter() {
             FALE COM A GENTE
           </h4>
           <a
-            href="#simulacao"
+            href="https://wa.me/5592994767946"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold px-4 py-2.5 rounded-lg transition-colors"
           >
             <span>Simular no WhatsApp</span>
@@ -56,7 +72,7 @@ export function SiteFooter() {
       </div>
 
       <div className="mt-12 pt-6 border-t border-blue-900/50 text-center text-[10px] text-blue-200/80">
-        © {new Date().getFullYear()} Tvlar Motos Yamaha. Todos os direitos reservados.
+        © {new Date().getFullYear()} Tvlar Motors Yamaha. Todos os direitos reservados.
       </div>
     </footer>
   )
