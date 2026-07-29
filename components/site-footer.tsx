@@ -1,7 +1,5 @@
-import Image from "next/image"
 import { MapPin, Clock } from "lucide-react"
 
-// Esta é a função do componente
 export function SiteFooter() {
   return (
     <footer className="bg-tvlar-blue text-white py-12 px-4 border-t border-blue-900">
@@ -10,19 +8,15 @@ export function SiteFooter() {
         {/* Logos & Sobre */}
         <div className="space-y-4">
           <div className="flex items-center gap-4">
-            <Image
+            <img
               src="/logo-yamaha.png"
               alt="Logo Yamaha"
-              width={110}
-              height={32}
               className="h-8 w-auto object-contain"
             />
             <div className="h-6 w-px bg-blue-700" />
-            <Image
+            <img
               src="/logo-tvlar-v2.png"
               alt="Logo Tvlar Motors"
-              width={500} // Mantendo o tamanho aumentado
-              height={160}
               className="h-40 w-auto object-contain"
             />
           </div>
@@ -79,5 +73,4 @@ export function SiteFooter() {
   )
 }
 
-// ADICIONE ESTA LINHA NO FINAL DO ARQUIVO:
 export default SiteFooter
