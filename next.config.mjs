@@ -1,11 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
-  },
+  // ADICIONE ESTE BLOCO AQUI:
   images: {
     unoptimized: true,
   },
-}
+  // Mantenha outras configurações que você já tiver abaixo, se houver
+};
 
-export default nextConfig
+module.exports = nextConfig;
