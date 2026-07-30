@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { WHATSAPP_LINK } from "@/lib/whatsapp"
 
-// URL da sua planilha integrada no Google Apps Script
+// URL da planilha integrada no Google Apps Script
 const GOOGLE_SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwMXgnn9EbjClJJLoDU2W8J4pvjElOUsJW-lVQ-W2H39Fue3w4hgV0vp8kWNBlFEl3Lkg/exec"
 
 export function LeadForm() {
@@ -23,14 +23,14 @@ export function LeadForm() {
 
     const nomePlano = plano === "club7-turbo" ? "Club 7 Turbo" : "Club 7"
 
-    // 1. Envia TODOS os 7 dados para a planilha do Google Sheets em segundo plano
+    // 1. Envia TODOS os dados para a planilha e aguarda a conclusão
     if (GOOGLE_SHEETS_WEBHOOK_URL) {
       try {
         await fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
           method: "POST",
-          mode: "no-cors", // Evita bloqueios de CORS do navegador
+          mode: "no-cors",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "text/plain",
           },
           body: JSON.stringify({
             nome,
@@ -41,13 +41,14 @@ export function LeadForm() {
             plano: nomePlano,
             mensagemLivre,
           }),
+          keepalive: true,
         })
       } catch (error) {
         console.error("Erro ao salvar dados na planilha:", error)
       }
     }
 
-    // 2. Prepara a mensagem personalizada com horário do dia para o WhatsApp
+    // 2. Prepara a mensagem do WhatsApp
     const hora = new Date().getHours()
     let saudacao = "Olá! Boa noite!"
     if (hora >= 5 && hora < 12) {
@@ -65,8 +66,10 @@ export function LeadForm() {
     setCarregando(false)
     setEnviado(true)
 
-    // 3. Abre a conversa no WhatsApp
-    window.open(WHATSAPP_LINK(mensagem), "_blank")
+    // 3. Abre o WhatsApp com pequeno delay de segurança
+    setTimeout(() => {
+      window.open(WHATSAPP_LINK(mensagem), "_blank")
+    }, 300)
   }
 
   if (enviado) {
