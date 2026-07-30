@@ -3,7 +3,6 @@
 import { useState } from "react"
 import { WHATSAPP_LINK } from "@/lib/whatsapp"
 
-// URL limpa e sem caracteres extras do seu Google Apps Script
 const GOOGLE_SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwMXgnn9EbjClJJLoDU2W8J4pvjElOUsJW-lVQ-W2H39Fue3w4hgV0vp8kWNBlFEl3Lkg/exec"
 
 export function LeadForm() {
@@ -23,7 +22,7 @@ export function LeadForm() {
 
     const nomePlano = plano === "club7-turbo" ? "Club 7 Turbo" : "Club 7"
 
-    // 1. Monta o payload em formato de formulário padrão (compatível com Apps Script)
+    // 1. Monta os dados
     const payload = new URLSearchParams()
     payload.append("nome", nome)
     payload.append("cpf", cpf)
@@ -33,19 +32,19 @@ export function LeadForm() {
     payload.append("plano", nomePlano)
     payload.append("mensagemLivre", mensagemLivre)
 
-    // 2. Dispara os dados para o Google Sheets em segundo plano
+    // 2. Dispara os dados para o Google Sheets
     if (GOOGLE_SHEETS_WEBHOOK_URL) {
       try {
-        fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
+        await fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
           method: "POST",
           mode: "no-cors",
           headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
+            "Content-Type": "text/plain;charset=utf-8",
           },
           body: payload.toString(),
-        }).catch((err) => console.error("Erro no envio para planilha:", err))
+        })
       } catch (err) {
-        console.error("Erro na requisição:", err)
+        console.error("Erro no envio para planilha:", err)
       }
     }
 
