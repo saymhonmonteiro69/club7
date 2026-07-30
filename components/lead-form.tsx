@@ -22,33 +22,30 @@ export function LeadForm() {
 
     const nomePlano = plano === "club7-turbo" ? "Club 7 Turbo" : "Club 7"
 
-    // 1. Monta os dados
-    const payload = new URLSearchParams()
-    payload.append("nome", nome)
-    payload.append("cpf", cpf)
-    payload.append("cnhA", cnhA)
-    payload.append("whatsapp", whatsapp)
-    payload.append("modeloMoto", modeloMoto)
-    payload.append("plano", nomePlano)
-    payload.append("mensagemLivre", mensagemLivre)
+    // 1. Monta os dados usando FormData
+    const formData = new FormData()
+    formData.append("nome", nome)
+    formData.append("cpf", cpf)
+    formData.append("cnhA", cnhA)
+    formData.append("whatsapp", whatsapp)
+    formData.append("modeloMoto", modeloMoto)
+    formData.append("plano", nomePlano)
+    formData.append("mensagemLivre", mensagemLivre)
 
-    // 2. Dispara os dados para o Google Sheets
+    // 2. Dispara os dados para a planilha
     if (GOOGLE_SHEETS_WEBHOOK_URL) {
       try {
         await fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
           method: "POST",
           mode: "no-cors",
-          headers: {
-            "Content-Type": "text/plain;charset=utf-8",
-          },
-          body: payload.toString(),
+          body: formData,
         })
       } catch (err) {
-        console.error("Erro no envio para planilha:", err)
+        console.error("Erro no envio:", err)
       }
     }
 
-    // 3. Monta a mensagem personalizada para o WhatsApp
+    // 3. Monta a mensagem do WhatsApp
     const hora = new Date().getHours()
     let saudacao = "Olá! Boa noite!"
     if (hora >= 5 && hora < 12) {
