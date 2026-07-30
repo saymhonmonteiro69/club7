@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { WHATSAPP_LINK } from "@/lib/whatsapp"
 
-// URL da planilha integrada no Google Apps Script
+// URL da sua planilha integrada no Google Apps Script
 const GOOGLE_SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwMXgnn9EbjClJJLoDU2W8J4pvjElOUsJW-lVQ-W2H39Fue3w4hgV0vp8kWNBlFEl3Lkg/exec"
 
 export function LeadForm() {
@@ -23,32 +23,33 @@ export function LeadForm() {
 
     const nomePlano = plano === "club7-turbo" ? "Club 7 Turbo" : "Club 7"
 
-    // 1. Envia TODOS os dados para a planilha e aguarda a conclusão
+    // 1. Monta os dados no formato universal para o Google Sheets
+    const payload = new URLSearchParams()
+    payload.append("nome", nome)
+    payload.append("cpf", cpf)
+    payload.append("cnhA", cnhA)
+    payload.append("whatsapp", whatsapp)
+    payload.append("modeloMoto", modeloMoto)
+    payload.append("plano", nomePlano)
+    payload.append("mensagemLivre", mensagemLivre)
+
+    // 2. Dispara o salvamento no Google Sheets
     if (GOOGLE_SHEETS_WEBHOOK_URL) {
       try {
-        await fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
+        fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
           method: "POST",
           mode: "no-cors",
           headers: {
-            "Content-Type": "text/plain",
+            "Content-Type": "application/x-www-form-urlencoded",
           },
-          body: JSON.stringify({
-            nome,
-            cpf,
-            cnhA,
-            whatsapp,
-            modeloMoto,
-            plano: nomePlano,
-            mensagemLivre,
-          }),
-          keepalive: true,
-        })
-      } catch (error) {
-        console.error("Erro ao salvar dados na planilha:", error)
+          body: payload.toString(),
+        }).catch((err) => console.error("Erro no envio para planilha:", err))
+      } catch (err) {
+        console.error("Erro na requisição:", err)
       }
     }
 
-    // 2. Prepara a mensagem do WhatsApp
+    // 3. Monta a mensagem personalizada para o WhatsApp
     const hora = new Date().getHours()
     let saudacao = "Olá! Boa noite!"
     if (hora >= 5 && hora < 12) {
@@ -66,10 +67,10 @@ export function LeadForm() {
     setCarregando(false)
     setEnviado(true)
 
-    // 3. Abre o WhatsApp com pequeno delay de segurança
+    // 4. Redireciona para o WhatsApp
     setTimeout(() => {
       window.open(WHATSAPP_LINK(mensagem), "_blank")
-    }, 300)
+    }, 400)
   }
 
   if (enviado) {
