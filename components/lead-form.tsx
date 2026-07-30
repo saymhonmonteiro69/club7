@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { WHATSAPP_LINK } from "@/lib/whatsapp"
 
-// URL da sua planilha integrada no Google Apps Script
+// URL limpa e sem caracteres extras do seu Google Apps Script
 const GOOGLE_SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwMXgnn9EbjClJJLoDU2W8J4pvjElOUsJW-lVQ-W2H39Fue3w4hgV0vp8kWNBlFEl3Lkg/exec"
 
 export function LeadForm() {
@@ -23,7 +23,7 @@ export function LeadForm() {
 
     const nomePlano = plano === "club7-turbo" ? "Club 7 Turbo" : "Club 7"
 
-    // 1. Monta os dados no formato universal para o Google Sheets
+    // 1. Monta o payload em formato de formulário padrão (compatível com Apps Script)
     const payload = new URLSearchParams()
     payload.append("nome", nome)
     payload.append("cpf", cpf)
@@ -33,7 +33,7 @@ export function LeadForm() {
     payload.append("plano", nomePlano)
     payload.append("mensagemLivre", mensagemLivre)
 
-    // 2. Dispara o salvamento no Google Sheets
+    // 2. Dispara os dados para o Google Sheets em segundo plano
     if (GOOGLE_SHEETS_WEBHOOK_URL) {
       try {
         fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
