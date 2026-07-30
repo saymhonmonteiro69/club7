@@ -3,6 +3,9 @@
 import { useState } from "react"
 import { WHATSAPP_LINK } from "@/lib/whatsapp"
 
+// URL da sua planilha integrada no Google Apps Script
+const GOOGLE_SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwMXgnn9EbjClJJLoDU2W8J4pvjElOUsJW-lVQ-W2H39Fue3w4hgV0vp8kWNBlFEl3Lkg/exec"
+
 export function LeadForm() {
   const [nome, setNome] = useState("")
   const [whatsapp, setWhatsapp] = useState("")
@@ -12,11 +15,39 @@ export function LeadForm() {
   const [mensagemLivre, setMensagemLivre] = useState("")
   const [plano, setPlano] = useState("club7")
   const [enviado, setEnviado] = useState(false)
+  const [carregando, setCarregando] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
-    // Função para definir a saudação conforme a hora do dia
+    setCarregando(true)
+
+    const nomePlano = plano === "club7-turbo" ? "Club 7 Turbo" : "Club 7"
+
+    // 1. Envia TODOS os 7 dados para a planilha do Google Sheets em segundo plano
+    if (GOOGLE_SHEETS_WEBHOOK_URL) {
+      try {
+        await fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
+          method: "POST",
+          mode: "no-cors", // Evita bloqueios de CORS do navegador
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            nome,
+            cpf,
+            cnhA,
+            whatsapp,
+            modeloMoto,
+            plano: nomePlano,
+            mensagemLivre,
+          }),
+        })
+      } catch (error) {
+        console.error("Erro ao salvar dados na planilha:", error)
+      }
+    }
+
+    // 2. Prepara a mensagem personalizada com horário do dia para o WhatsApp
     const hora = new Date().getHours()
     let saudacao = "Olá! Boa noite!"
     if (hora >= 5 && hora < 12) {
@@ -25,18 +56,16 @@ export function LeadForm() {
       saudacao = "Olá! Boa tarde!"
     }
 
-    const nomePlano = plano === "club7-turbo" ? "Club 7 Turbo" : "Club 7"
-    
     let mensagem = `${saudacao} Meu nome é ${nome}.\nCPF: ${cpf}\nCNH A: ${cnhA}\nWhatsApp: ${whatsapp}\nModelo de Interesse: ${modeloMoto}\nPlano de Interesse: *${nomePlano}*`
     
     if (mensagemLivre.trim() !== "") {
       mensagem += `\nDúvida/Observação: ${mensagemLivre}`
     }
-    
-    // Exibe a mensagem de sucesso na tela
+
+    setCarregando(false)
     setEnviado(true)
 
-    // Abre o WhatsApp em nova aba
+    // 3. Abre a conversa no WhatsApp
     window.open(WHATSAPP_LINK(mensagem), "_blank")
   }
 
@@ -44,9 +73,9 @@ export function LeadForm() {
     return (
       <div className="bg-slate-900 border border-emerald-500/50 p-8 rounded-2xl text-center space-y-4 text-white shadow-xl">
         <div className="text-5xl">✅</div>
-        <h3 className="text-2xl font-bold text-emerald-400">Simulação Gerada com Sucesso!</h3>
+        <h3 className="text-2xl font-bold text-emerald-400">Simulação Enviada com Sucesso!</h3>
         <p className="text-sm text-slate-300">
-          Você está sendo redirecionado para o WhatsApp da nossa equipe para finalizar o seu atendimento.
+          Seus dados foram registrados e você está sendo direcionado ao WhatsApp da equipe Tvlar Motos.
         </p>
         <button
           onClick={() => setEnviado(false)}
@@ -171,9 +200,10 @@ export function LeadForm() {
 
       <button
         type="submit"
-        className="w-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold py-3.5 rounded-lg transition shadow-lg text-sm uppercase tracking-wide mt-2"
+        disabled={carregando}
+        className="w-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold py-3.5 rounded-lg transition shadow-lg text-sm uppercase tracking-wide mt-2 disabled:opacity-50"
       >
-        Enviar Simulação Grátis
+        {carregando ? "Enviando e Salvando..." : "Enviar Simulação Grátis"}
       </button>
     </form>
   )
