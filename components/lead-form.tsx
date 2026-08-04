@@ -2,6 +2,12 @@
 
 import { useState } from "react"
 import { WHATSAPP_LINK } from "@/lib/whatsapp"
+import { createClient } from "@supabase/supabase-js"
+
+// Configuração do Supabase
+const supabaseUrl = "https://bnsgtdhwyzxmvtsggjhf.supabase.co"
+const supabaseAnonKey = "sb_publishable_WQgPAcgR4S0P5WpEm49ZFw_RWqHFJJ1"
+const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 const GOOGLE_SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwMXgnn9EbjClJJLoDU2W8J4pvjElOUsJW-lVQ-W2H39Fue3w4hgV0vp8kWNBlFEl3Lkg/exec"
 
@@ -22,7 +28,25 @@ export function LeadForm() {
 
     const nomePlano = plano === "club7-turbo" ? "Club 7 Turbo" : "Club 7"
 
-    // 1. Monta os dados usando FormData
+    // 1. Envia para o Supabase (Banco de Dados do Dashboard)
+    try {
+      await supabase.from("leads").insert([
+        {
+          nome: nome,
+          cpf: cpf,
+          telefone: whatsapp,
+          cnh: cnhA,
+          modelo_moto: modeloMoto,
+          plano: nomePlano,
+          observacoes: mensagemLivre,
+          status: "Novo"
+        }
+      ])
+    } catch (err) {
+      console.error("Erro no Supabase:", err)
+    }
+
+    // 2. Dispara os dados para a Planilha do Google
     const formData = new FormData()
     formData.append("nome", nome)
     formData.append("cpf", cpf)
@@ -32,7 +56,6 @@ export function LeadForm() {
     formData.append("plano", nomePlano)
     formData.append("mensagemLivre", mensagemLivre)
 
-    // 2. Dispara os dados para a planilha
     if (GOOGLE_SHEETS_WEBHOOK_URL) {
       try {
         await fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
@@ -41,7 +64,7 @@ export function LeadForm() {
           body: formData,
         })
       } catch (err) {
-        console.error("Erro no envio:", err)
+        console.error("Erro no Google Sheets:", err)
       }
     }
 
