@@ -26,7 +26,7 @@ export function LeadForm() {
 
     const nomePlano = plano === "club7-turbo" ? "Club 7 Turbo" : "Club 7"
 
-    // 1. Envia para o Supabase via HTTP (Não precisa da biblioteca importada)
+    // 1. Envia para o Supabase via HTTP
     try {
       await fetch(SUPABASE_URL, {
         method: "POST",
