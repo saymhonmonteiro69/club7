@@ -62,7 +62,7 @@ export function BenefitsSection() {
 
           {/* Botão WhatsApp */}
           <a
-            href="https://wa.me/5592986470747"
+            href="https://wa.me/5592993875478"
             target="_blank"
             rel="noopener noreferrer"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-sm px-6 py-3.5 rounded-xl shadow-md transition-all duration-200 hover:scale-105"
