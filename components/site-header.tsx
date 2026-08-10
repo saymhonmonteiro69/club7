@@ -9,21 +9,23 @@ export function SiteHeader() {
         
         {/* Container das Logos */}
         <div className="flex items-center gap-3 sm:gap-5">
+          {/* Logo CSF (Agora na esquerda e menor) */}
+          <Image
+            src="/logo_Csf_.png"
+            alt="CSF Vendas e Investimentos"
+            width={300}
+            height={90}
+            className="h-14 sm:h-16 w-auto object-contain"
+            priority
+          />
+          <span className="h-12 sm:h-16 w-px bg-white/20" aria-hidden="true" />
+          {/* Logo Yamaha (Agora na direita) */}
           <Image
             src="/logo-yamaha.png"
             alt="Yamaha"
             width={200}
             height={60}
             className="h-9 sm:h-12 w-auto object-contain"
-            priority
-          />
-          <span className="h-12 sm:h-16 w-px bg-white/20" aria-hidden="true" />
-          <Image
-            src="/logo_Csf_.png"
-            alt="CSF Vendas e Investimentos"
-            width={600}
-            height={180}
-            className="h-28 sm:h-32 w-auto object-contain"
             priority
           />
         </div>
