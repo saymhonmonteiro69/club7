@@ -1,11 +1,7 @@
 "use client"
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
+import { useState } from "react"
+import { ChevronDown } from "lucide-react"
 
 const faqs = [
   {
@@ -23,6 +19,12 @@ const faqs = [
 ]
 
 export function FaqSection() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
+
+  const toggleFaq = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index)
+  }
+
   return (
     <section className="py-16 bg-[#0a0c10] text-[#ffffff]">
       <div className="container max-w-4xl mx-auto px-4">
@@ -30,22 +32,35 @@ export function FaqSection() {
           Perguntas Frequentes
         </h2>
 
-        <Accordion type="single" collapsible className="w-full space-y-4">
-          {faqs.map((faq, index) => (
-            <AccordionItem
-              key={index}
-              value={`item-${index}`}
-              className="bg-[#12161f] border border-[#ffffff]/10 rounded-xl px-6 py-1 overflow-hidden"
-            >
-              <AccordionTrigger className="text-left font-medium text-[#ffffff] hover:no-underline text-sm md:text-base">
-                {faq.question}
-              </AccordionTrigger>
-              <AccordionContent className="text-[#9ca3af] text-sm leading-relaxed pt-2">
-                {faq.answer}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+        <div className="space-y-4">
+          {faqs.map((faq, index) => {
+            const isOpen = openIndex === index
+            return (
+              <div
+                key={index}
+                className="bg-[#12161f] border border-[#ffffff]/10 rounded-xl px-6 py-4 transition-all duration-200"
+              >
+                <button
+                  onClick={() => toggleFaq(index)}
+                  className="w-full flex justify-between items-center text-left font-medium text-[#ffffff] text-sm md:text-base focus:outline-none"
+                >
+                  <span>{faq.question}</span>
+                  <ChevronDown
+                    className={`w-5 h-5 text-gray-400 transition-transform duration-200 ${
+                      isOpen ? "rotate-180 text-white" : ""
+                    }`}
+                  />
+                </button>
+
+                {isOpen && (
+                  <p className="text-[#9ca3af] text-sm leading-relaxed pt-3 border-t border-white/5 mt-3">
+                    {faq.answer}
+                  </p>
+                )}
+              </div>
+            )
+          })}
+        </div>
       </div>
     </section>
   )
