@@ -1,179 +1,176 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { Star } from "lucide-react"
+import { useState } from "react"
+import Image from "next/image"
 
-// Distribuição exclusiva das 9 fotos para que nenhum card repita a foto do outro
-const imagesListA = ["/entrega1.jpg", "/entrega2.jpg"]
-const imagesListB = ["/entrega3.jpg", "/entrega4.jpg"]
-const imagesListC = ["/entrega5.jpg", "/entrega6.jpg"]
-const imagesListD = ["/entrega7.jpg", "/entrega8.jpg", "/entrega9.jpg"]
+type FilterType = "all" | "whatsapp" | "deliveries"
+
+// Lista dos cards combinados exatamente como no seu layout atual
+const testimonialsData = [
+  {
+    type: "text",
+    category: "whatsapp",
+    rating: 5,
+    text: "Eu tava pagando quase R$ 400 por semana em moto alugada e quebrando a cabeça. No Club 7 consegui aprovar minha Factor e hoje estou pagando o que é MEU!",
+    author: "João P.",
+    role: "Entregador de app • Manaus"
+  },
+  {
+    type: "photo",
+    category: "deliveries",
+    image: "/entrega-1.jpg", // Substitua pelo caminho correto da sua imagem
+    badge: "Entregas Reais 🏍️"
+  },
+  {
+    type: "text",
+    category: "whatsapp",
+    rating: 5,
+    text: "Estava com o nome sujo e achei que nunca ia conseguir. No Club 7 Turbo saí com a moto no mesmo dia. Recomendo demais a Tvlar!",
+    author: "Márcia S.",
+    role: "Motoboy • Manaus"
+  },
+  {
+    type: "photo",
+    category: "deliveries",
+    image: "/entrega-2.jpg", // Substitua pelo caminho correto da sua imagem
+    badge: "Sonhos Realizados 🔑"
+  },
+  {
+    type: "photo",
+    category: "deliveries",
+    image: "/entrega-3.jpg", // Substitua pelo caminho correto da sua imagem
+    badge: "Motos Entregues 🔑"
+  },
+  {
+    type: "text",
+    category: "whatsapp",
+    rating: 5,
+    text: "Tinha vergonha de tentar em outros lugares por causa da restrição. Aqui fui tratado com respeito e saí de moto nova. Melhor decisão que tomei.",
+    author: "Anderson M.",
+    role: "Motoboy • Manaus"
+  },
+  {
+    type: "photo",
+    category: "deliveries",
+    image: "/entrega-4.jpg", // Substitua pelo caminho correto da sua imagem
+    badge: "Clientes Satisfeitos 🤝"
+  },
+  {
+    type: "text",
+    category: "whatsapp",
+    rating: 5,
+    text: "Saí do aluguel que me sugava todo mês. Hoje a moto é minha, faço minha manutenção e trabalho tranquilo. Recomendo o Club 7 pra todo colega de rua.",
+    author: "Fábio R.",
+    role: "Entregador de app • Manaus"
+  }
+]
 
 export function TestimonialsSection() {
-  const [indexA, setIndexA] = useState(0)
-  const [indexB, setIndexB] = useState(0)
-  const [indexC, setIndexC] = useState(0)
-  const [indexD, setIndexD] = useState(0)
+  const [activeFilter, setActiveFilter] = useState<FilterType>("all")
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setIndexA((prev) => (prev + 1) % imagesListA.length)
-      setIndexB((prev) => (prev + 1) % imagesListB.length)
-      setIndexC((prev) => (prev + 1) % imagesListC.length)
-      setIndexD((prev) => (prev + 1) % imagesListD.length)
-    }, 3500)
-    return () => clearInterval(timer)
-  }, [])
+  const handleFilterChange = (filter: FilterType) => {
+    // Se clicar no filtro que já está ativo, volta a mostrar todos
+    if (activeFilter === filter) {
+      setActiveFilter("all")
+    } else {
+      setActiveFilter(filter)
+    }
+  }
+
+  const filteredData = testimonialsData.filter((item) => {
+    if (activeFilter === "all") return true
+    return item.category === activeFilter
+  })
 
   return (
-    <section className="bg-background py-12 px-4 border-t border-border/40">
-      <div className="max-w-6xl mx-auto space-y-8">
+    <section className="py-16 bg-[#0a0c10] text-white">
+      <div className="container max-w-6xl mx-auto px-4">
         
-        {/* Texto do topo */}
-        <p className="text-center text-xs sm:text-sm text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-          Centenas de trabalhadores da região de Manaus já trocaram o aluguel pela própria moto com a Tvlar
-          Motos Yamaha. Veja o que alguns deles dizem sobre a experiência.
+        {/* Texto descritivo do topo */}
+        <p className="text-center text-gray-300 text-sm md:text-base max-w-3xl mx-auto mb-8 leading-relaxed">
+          Centenas de trabalhadores da região de Manaus já trocaram o aluguel pela própria moto com a Tvlar Motos Yamaha. Veja o que alguns deles dizem sobre a experiência.
         </p>
 
-        {/* Grid de EXATAMENTE 8 caixas */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          
-          {/* --- LINHA 1 --- */}
+        {/* Botões de Filtro */}
+        <div className="flex justify-center items-center gap-3 mb-10">
+          <button
+            onClick={() => handleFilterChange("whatsapp")}
+            className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 border ${
+              activeFilter === "whatsapp"
+                ? "bg-white text-gray-900 border-white shadow-lg"
+                : "bg-white/90 text-gray-800 border-transparent hover:bg-white"
+            }`}
+          >
+            WhatsApps reais
+          </button>
 
-          {/* CAIXA 1 (Depoimento João P.) */}
-          <div className="rounded-2xl border border-border bg-card p-5 flex flex-col justify-between shadow-sm h-[240px]">
-            <div>
-              <div className="flex gap-1 mb-3 text-amber-400">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-amber-400" />
-                ))}
-              </div>
-              <p className="text-xs italic text-foreground leading-relaxed">
-                &quot;Eu tava pagando quase R$ 400 por semana em moto alugada e quebrando a cabeça. No Club 7 consegui aprovar minha Factor e hoje estou pagando o que é MEU!&quot;
-              </p>
-            </div>
-            <div className="pt-3 border-t border-border/40">
-              <p className="text-xs font-bold text-tvlar-blue">João P.</p>
-              <p className="text-[10px] text-muted-foreground">Entregador de app · Manaus</p>
-            </div>
-          </div>
-
-          {/* CAIXA 2 (Linha 1, Card de Imagem 1: Fotos 1 e 2) */}
-          <div className="rounded-2xl border border-border bg-card p-2 flex flex-col justify-between shadow-sm overflow-hidden h-[240px]">
-            <div className="relative w-full h-full rounded-xl overflow-hidden bg-slate-900">
-              <img
-                src={imagesListA[indexA]}
-                alt="Entrega Tvlar Motos"
-                className="w-full h-full object-cover transition-all duration-500"
-              />
-              <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] font-bold text-white">
-                Entregas Reais 🏍️
-              </div>
-            </div>
-          </div>
-
-          {/* CAIXA 3 (Depoimento Márcia S.) */}
-          <div className="rounded-2xl border border-border bg-card p-5 flex flex-col justify-between shadow-sm h-[240px]">
-            <div>
-              <div className="flex gap-1 mb-3 text-amber-400">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-amber-400" />
-                ))}
-              </div>
-              <p className="text-xs italic text-foreground leading-relaxed">
-                &quot;Estava com o nome sujo e achei que nunca ia conseguir. No Club 7 Turbo saí com a moto no mesmo dia. Recomendo demais a Tvlar!&quot;
-              </p>
-            </div>
-            <div className="pt-3 border-t border-border/40">
-              <p className="text-xs font-bold text-tvlar-blue">Márcia S.</p>
-              <p className="text-[10px] text-muted-foreground">Motoboy · Manaus</p>
-            </div>
-          </div>
-
-          {/* CAIXA 4 (Linha 1, Card de Imagem 2: Fotos 3 e 4) */}
-          <div className="rounded-2xl border border-border bg-card p-2 flex flex-col justify-between shadow-sm overflow-hidden h-[240px]">
-            <div className="relative w-full h-full rounded-xl overflow-hidden bg-slate-900">
-              <img
-                src={imagesListB[indexB]}
-                alt="Realizando Sonhos"
-                className="w-full h-full object-cover transition-all duration-500"
-              />
-              <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] font-bold text-white">
-                Sonhos Realizados ✨
-              </div>
-            </div>
-          </div>
-
-          {/* --- LINHA 2 --- */}
-
-          {/* CAIXA 5 / Linha 2 Caixa 1 (Card de Imagem 3: Fotos 5 e 6) */}
-          <div className="rounded-2xl border border-border bg-card p-2 flex flex-col justify-between shadow-sm overflow-hidden h-[240px]">
-            <div className="relative w-full h-full rounded-xl overflow-hidden bg-slate-900">
-              <img
-                src={imagesListC[indexC]}
-                alt="Motos Entregues"
-                className="w-full h-full object-cover transition-all duration-500"
-              />
-              <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] font-bold text-white">
-                Motos Entregues 🔑
-              </div>
-            </div>
-          </div>
-
-          {/* CAIXA 6 / Linha 2 Caixa 2 (Depoimento Anderson M.) */}
-          <div className="rounded-2xl border border-border bg-card p-5 flex flex-col justify-between shadow-sm h-[240px]">
-            <div>
-              <div className="flex gap-1 mb-3 text-amber-400">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-amber-400" />
-                ))}
-              </div>
-              <p className="text-xs italic text-foreground leading-relaxed">
-                &quot;Tinha vergonha de tentar em outros lugares por causa da restrição. Aqui fui tratado com respeito e saí de moto nova. Melhor decisão que tomei.&quot;
-              </p>
-            </div>
-            <div className="pt-3 border-t border-border/40">
-              <p className="text-xs font-bold text-tvlar-blue">Anderson M.</p>
-              <p className="text-[10px] text-muted-foreground">Motoboy · Manaus</p>
-            </div>
-          </div>
-
-          {/* CAIXA 7 / Linha 2 Caixa 3 (Card de Imagem 4: Fotos 7, 8 e 9) */}
-          <div className="rounded-2xl border border-border bg-card p-2 flex flex-col justify-between shadow-sm overflow-hidden h-[240px]">
-            <div className="relative w-full h-full rounded-xl overflow-hidden bg-slate-900">
-              <img
-                src={imagesListD[indexD]}
-                alt="Conquistas Reais"
-                className="w-full h-full object-cover transition-all duration-500"
-              />
-              <div className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] font-bold text-white">
-                Clientes Satisfeitos 🤝
-              </div>
-            </div>
-          </div>
-
-          {/* CAIXA 8 / Linha 2 Caixa 4 (Depoimento Fábio R.) */}
-          <div className="rounded-2xl border border-border bg-card p-5 flex flex-col justify-between shadow-sm h-[240px]">
-            <div>
-              <div className="flex gap-1 mb-3 text-amber-400">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-amber-400" />
-                ))}
-              </div>
-              <p className="text-xs italic text-foreground leading-relaxed">
-                &quot;Saí do aluguel que me sugava todo mês. Hoje a moto é minha, faço minha manutenção e trabalho tranquilo. Recomendo o Club 7 pra todo colega de rua.&quot;
-              </p>
-            </div>
-            <div className="pt-3 border-t border-border/40">
-              <p className="text-xs font-bold text-tvlar-blue">Fábio R.</p>
-              <p className="text-[10px] text-muted-foreground">Entregador de app · Manaus</p>
-            </div>
-          </div>
-
+          <button
+            onClick={() => handleFilterChange("deliveries")}
+            className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 border ${
+              activeFilter === "deliveries"
+                ? "bg-[#0b1b2d] text-white border-emerald-500 ring-1 ring-emerald-500"
+                : "bg-[#0b1b2d] text-white border-emerald-500/60 hover:border-emerald-500"
+            }`}
+          >
+            Entregas na loja
+          </button>
         </div>
 
-        {/* Rodapé da seção */}
-        <p className="text-center text-[10px] text-muted-foreground">
+        {/* Grid de Cards (Design Mantido) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {filteredData.map((item, index) => {
+            if (item.type === "text") {
+              return (
+                <div
+                  key={index}
+                  className="bg-[#12161f] border border-white/10 rounded-2xl p-5 flex flex-col justify-between min-h-[260px]"
+                >
+                  <div>
+                    {/* Estrelas */}
+                    <div className="flex gap-1 text-amber-400 mb-3 text-sm">
+                      {"★".repeat(item.rating || 5)}
+                    </div>
+                    {/* Depoimento em texto */}
+                    <p className="text-xs md:text-sm text-gray-300 italic leading-relaxed">
+                      "{item.text}"
+                    </p>
+                  </div>
+
+                  {/* Nome e Cargo */}
+                  <div className="pt-4 mt-2 border-t border-white/5">
+                    <p className="font-semibold text-xs text-blue-400">{item.author}</p>
+                    <p className="text-[11px] text-gray-500">{item.role}</p>
+                  </div>
+                </div>
+              )
+            }
+
+            return (
+              <div
+                key={index}
+                className="relative bg-[#12161f] border border-white/10 rounded-2xl overflow-hidden min-h-[260px] flex flex-col"
+              >
+                <div className="relative w-full h-full min-h-[260px]">
+                  <Image
+                    src={item.image || "/placeholder.jpg"}
+                    alt={item.badge || "Entrega de Moto"}
+                    fill
+                    className="object-cover"
+                  />
+                  {/* Badge preta com borda na parte inferior da foto */}
+                  {item.badge && (
+                    <div className="absolute bottom-3 left-3 bg-black/80 backdrop-blur-sm px-3 py-1 rounded-lg text-[11px] font-medium text-white border border-white/20">
+                      {item.badge}
+                    </div>
+                  )}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+
+        {/* Disclaimer do rodapé da seção */}
+        <p className="text-center text-[11px] text-gray-500 mt-8">
           *Depoimentos de clientes reais. Nomes podem ser abreviados para preservar a privacidade.
         </p>
 
@@ -181,5 +178,3 @@ export function TestimonialsSection() {
     </section>
   )
 }
-
-export default TestimonialsSection
