@@ -103,7 +103,7 @@ export function LeadForm() {
         <div className="text-5xl">✅</div>
         <h3 className="text-2xl font-bold text-emerald-400">Simulação Enviada com Sucesso!</h3>
         <p className="text-sm text-slate-300">
-          Seus dados foram registrados e você está sendo direcionado ao WhatsApp da equipe Tvlar Motos.
+          Seus dados foram registrados e você está sendo direcionado ao WhatsApp da equipe CSF Vendas e Investimentos.
         </p>
         <button
           onClick={() => setEnviado(false)}
