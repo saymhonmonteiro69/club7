@@ -5,7 +5,7 @@ import Image from "next/image"
 
 type FilterType = "all" | "whatsapp" | "deliveries"
 
-// Lista dos cards combinados exatamente como no seu layout atual
+// Certifique-se de que o caminho das imagens corresponda aos arquivos da sua pasta /public
 const testimonialsData = [
   {
     type: "text",
@@ -18,8 +18,8 @@ const testimonialsData = [
   {
     type: "photo",
     category: "deliveries",
-    image: "/entrega-1.jpg", // Substitua pelo caminho correto da sua imagem
-    badge: "Entregas Reais 🏍️"
+    image: "/entrega1.jpg", // <-- AJUSTE COM O NOME DO SEU ARQUIVO EM /public
+    badge: "Entregas Reais 🏎️"
   },
   {
     type: "text",
@@ -32,13 +32,13 @@ const testimonialsData = [
   {
     type: "photo",
     category: "deliveries",
-    image: "/entrega-2.jpg", // Substitua pelo caminho correto da sua imagem
+    image: "/entrega2.jpg", // <-- AJUSTE COM O NOME DO SEU ARQUIVO EM /public
     badge: "Sonhos Realizados 🔑"
   },
   {
     type: "photo",
     category: "deliveries",
-    image: "/entrega-3.jpg", // Substitua pelo caminho correto da sua imagem
+    image: "/entrega3.jpg", // <-- AJUSTE COM O NOME DO SEU ARQUIVO EM /public
     badge: "Motos Entregues 🔑"
   },
   {
@@ -52,7 +52,7 @@ const testimonialsData = [
   {
     type: "photo",
     category: "deliveries",
-    image: "/entrega-4.jpg", // Substitua pelo caminho correto da sua imagem
+    image: "/entrega4.jpg", // <-- AJUSTE COM O NOME DO SEU ARQUIVO EM /public
     badge: "Clientes Satisfeitos 🤝"
   },
   {
@@ -68,15 +68,6 @@ const testimonialsData = [
 export function TestimonialsSection() {
   const [activeFilter, setActiveFilter] = useState<FilterType>("all")
 
-  const handleFilterChange = (filter: FilterType) => {
-    // Se clicar no filtro que já está ativo, volta a mostrar todos
-    if (activeFilter === filter) {
-      setActiveFilter("all")
-    } else {
-      setActiveFilter(filter)
-    }
-  }
-
   const filteredData = testimonialsData.filter((item) => {
     if (activeFilter === "all") return true
     return item.category === activeFilter
@@ -86,15 +77,28 @@ export function TestimonialsSection() {
     <section className="py-16 bg-[#0a0c10] text-white">
       <div className="container max-w-6xl mx-auto px-4">
         
-        {/* Texto descritivo do topo */}
+        {/* Subtítulo descritivo */}
         <p className="text-center text-gray-300 text-sm md:text-base max-w-3xl mx-auto mb-8 leading-relaxed">
           Centenas de trabalhadores da região de Manaus já trocaram o aluguel pela própria moto com a Tvlar Motos Yamaha. Veja o que alguns deles dizem sobre a experiência.
         </p>
 
-        {/* Botões de Filtro */}
-        <div className="flex justify-center items-center gap-3 mb-10">
+        {/* Botões de Filtro conforme a Imagem N° 2 */}
+        <div className="flex flex-wrap justify-center items-center gap-3 mb-10">
+          {/* Botão 1: Depoimentos (Exibe Todos) */}
           <button
-            onClick={() => handleFilterChange("whatsapp")}
+            onClick={() => setActiveFilter("all")}
+            className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 border ${
+              activeFilter === "all"
+                ? "bg-white text-gray-900 border-white shadow-lg"
+                : "bg-white/90 text-gray-800 border-transparent hover:bg-white"
+            }`}
+          >
+            Depoimentos
+          </button>
+
+          {/* Botão 2: WhatsApps reais */}
+          <button
+            onClick={() => setActiveFilter("whatsapp")}
             className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 border ${
               activeFilter === "whatsapp"
                 ? "bg-white text-gray-900 border-white shadow-lg"
@@ -104,11 +108,12 @@ export function TestimonialsSection() {
             WhatsApps reais
           </button>
 
+          {/* Botão 3: Entregas na loja */}
           <button
-            onClick={() => handleFilterChange("deliveries")}
+            onClick={() => setActiveFilter("deliveries")}
             className={`px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 border ${
               activeFilter === "deliveries"
-                ? "bg-[#0b1b2d] text-white border-emerald-500 ring-1 ring-emerald-500"
+                ? "bg-[#0b1b2d] text-white border-emerald-500 ring-1 ring-emerald-500 shadow-lg"
                 : "bg-[#0b1b2d] text-white border-emerald-500/60 hover:border-emerald-500"
             }`}
           >
@@ -116,14 +121,14 @@ export function TestimonialsSection() {
           </button>
         </div>
 
-        {/* Grid de Cards (Design Mantido) */}
+        {/* Grid dos Cards - Preservando o layout da Imagem N° 3 */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {filteredData.map((item, index) => {
             if (item.type === "text") {
               return (
                 <div
                   key={index}
-                  className="bg-[#12161f] border border-white/10 rounded-2xl p-5 flex flex-col justify-between min-h-[260px]"
+                  className="bg-[#12161f] border border-white/10 rounded-2xl p-5 flex flex-col justify-between min-h-[280px]"
                 >
                   <div>
                     {/* Estrelas */}
@@ -148,14 +153,15 @@ export function TestimonialsSection() {
             return (
               <div
                 key={index}
-                className="relative bg-[#12161f] border border-white/10 rounded-2xl overflow-hidden min-h-[260px] flex flex-col"
+                className="relative bg-[#12161f] border border-white/10 rounded-2xl overflow-hidden min-h-[280px] flex flex-col"
               >
-                <div className="relative w-full h-full min-h-[260px]">
+                <div className="relative w-full h-full min-h-[280px]">
                   <Image
                     src={item.image || "/placeholder.jpg"}
                     alt={item.badge || "Entrega de Moto"}
                     fill
                     className="object-cover"
+                    unoptimized // Evita falhas de carregamento em caminhos locais estáticos
                   />
                   {/* Badge preta com borda na parte inferior da foto */}
                   {item.badge && (
@@ -169,7 +175,7 @@ export function TestimonialsSection() {
           })}
         </div>
 
-        {/* Disclaimer do rodapé da seção */}
+        {/* Disclaimer do rodapé */}
         <p className="text-center text-[11px] text-gray-500 mt-8">
           *Depoimentos de clientes reais. Nomes podem ser abreviados para preservar a privacidade.
         </p>
