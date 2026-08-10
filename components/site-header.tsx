@@ -19,7 +19,7 @@ export function SiteHeader() {
           />
           <span className="h-12 sm:h-16 w-px bg-white/20" aria-hidden="true" />
           <Image
-            src="/logo_Csf.png"
+            src="/logo_Csf_.png"
             alt="CSF Vendas e Investimentos"
             width={600}
             height={180}
