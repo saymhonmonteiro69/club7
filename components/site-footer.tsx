@@ -55,7 +55,7 @@ export function SiteFooter() {
             FALE COM A GENTE
           </h4>
           <a
-            href="https://wa.me/5592994767946"
+            href="https://wa.me/5592993875478"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold px-4 py-2.5 rounded-lg transition-colors"
