@@ -8,16 +8,18 @@ export function SiteFooter() {
         {/* Logos & Sobre */}
         <div className="space-y-4">
           <div className="flex items-center gap-4">
+            {/* Logo CSF (Esquerda) */}
+            <img
+              src="/logo_Csf_.png"
+              alt="Logo CSF Vendas e Investimentos"
+              className="h-14 sm:h-16 w-auto object-contain"
+            />
+            <div className="h-8 w-px bg-blue-700" />
+            {/* Logo Yamaha (Direita - Destaque) */}
             <img
               src="/logo-yamaha.png"
               alt="Logo Yamaha"
-              className="h-8 w-auto object-contain"
-            />
-            <div className="h-6 w-px bg-blue-700" />
-            <img
-              src="/logo-tvlar-v2.png"
-              alt="Logo Tvlar Motors"
-              className="h-40 w-auto object-contain"
+              className="h-10 sm:h-12 w-auto object-contain"
             />
           </div>
           <p className="text-xs text-blue-100 leading-relaxed">
