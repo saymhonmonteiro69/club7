@@ -5,16 +5,28 @@ import { ChevronDown } from "lucide-react"
 
 const faqs = [
   {
-    question: "Como funciona o atendimento?",
-    answer: "Nosso atendimento é realizado de forma personalizada via WhatsApp e presencialmente na nossa loja. Analisamos seu perfil para oferecer a melhor opção de aprovação."
+    question: "Quem tem nome negativado (SPC/Serasa) pode aprovar?",
+    answer: "Sim! Trabalhamos com condições especiais para quem possui restrições. No plano Club 7, por exemplo, não fazemos consulta ao SPC/Serasa, sendo a oportunidade perfeita para você sair do aluguel de moto."
   },
   {
-    question: "Quais são as formas de pagamento?",
-    answer: "Oferecemos diversas opções facilitadas de parcelamento e entrada, ajustadas à sua realidade financeira."
+    question: "Qual é a diferença entre o Club 7 e o Club 7 Turbo?",
+    answer: "O Club 7 é focado em planejamento e economia, com parcelas facilitadas no boleto que cabem no seu bolso. Já o Club 7 Turbo tem aprovação ultrarrápida e entrega imediata, feito sob medida para quem precisa da moto para trabalhar hoje mesmo."
   },
   {
-    question: "Como tenho acesso aos benefícios?",
-    answer: "Após a aprovação e entrega do seu veículo, você já garante acesso imediato a todas as vantagens e suporte do Club 7."
+    question: "Preciso ter CNH Categoria A?",
+    answer: "A CNH A facilita e agiliza a liberação da sua moto, mas você pode fazer a simulação mesmo se ainda estiver tirando a habilitação ou no processo de emissão."
+  },
+  {
+    question: "Como funciona o atendimento e o processo de simulação?",
+    answer: "É simples e sem burocracia! Você preenche a ficha em menos de 2 minutos no site e nossa equipe entra em contato com você direto pelo WhatsApp com o resultado da sua aprovação."
+  },
+  {
+    question: "Quais são as opções e formas de pagamento?",
+    answer: "Oferecemos diversas opções facilitadas de parcelamento no boleto e entrada, ajustadas à sua realidade financeira para que você invista no que é 100% seu."
+  },
+  {
+    question: "Onde fica localizada a loja física em Manaus?",
+    answer: "Estamos localizados na Av. Max Teixeira, 3200 - Cidade Nova, Manaus / AM. Nosso atendimento presencial funciona de segunda a sábado, das 8h às 18h."
   }
 ]
 
