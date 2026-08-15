@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { WHATSAPP_LINK } from "@/lib/whatsapp"
-import { leadFormSchema } from "@/schema"
+import { leadFormSchema } from "@/lib/db/schema"
 
 const GOOGLE_SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwMXgnn9EbjClJJLoDU2W8J4pvjElOUsJW-lVQ-W2H39Fue3w4hgV0vp8kWNBlFEl3Lkg/exec"
 
