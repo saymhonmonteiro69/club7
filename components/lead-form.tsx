@@ -5,8 +5,6 @@ import { WHATSAPP_LINK } from "@/lib/whatsapp"
 import { leadFormSchema } from "@/lib/db/schema"
 import { submitLeadServer } from "@/app/actions/leads"
 
-const GOOGLE_SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwMXgnn9EbjClJJLoDU2W8J4pvjElOUsJW-lVQ-W2H39Fue3w4hgV0vp8kWNBlFEl3Lkg/exec"
-
 export function LeadForm() {
   const [nome, setNome] = useState("")
   const [whatsapp, setWhatsapp] = useState("")
@@ -43,7 +41,7 @@ export function LeadForm() {
     const dadosLimpos = validacao.data
     const nomePlano = dadosLimpos.plano === "club7-turbo" ? "Club 7 Turbo" : "Club 7"
 
-    // 1. Envia para o Supabase via Server Action (Etapa 4 - Server-Side)
+    // 1. Envia para o Supabase e Google Sheets via Server Action (Server-Side Protegido)
     const resultadoServer = await submitLeadServer({
       nome: dadosLimpos.nome,
       cpf: dadosLimpos.cpf,
@@ -70,29 +68,7 @@ export function LeadForm() {
       })
     }
 
-    // 3. Dispara os dados para a Planilha do Google
-    const formData = new FormData()
-    formData.append("nome", dadosLimpos.nome)
-    formData.append("cpf", dadosLimpos.cpf)
-    formData.append("cnhA", dadosLimpos.cnhA)
-    formData.append("whatsapp", dadosLimpos.telefone)
-    formData.append("modeloMoto", dadosLimpos.modeloMoto)
-    formData.append("plano", nomePlano)
-    formData.append("mensagemLivre", dadosLimpos.mensagemLivre || "")
-
-    if (GOOGLE_SHEETS_WEBHOOK_URL) {
-      try {
-        await fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
-          method: "POST",
-          mode: "no-cors",
-          body: formData,
-        })
-      } catch (err) {
-        console.error("Erro no Google Sheets:", err)
-      }
-    }
-
-    // 4. Monta a mensagem do WhatsApp
+    // 3. Monta a mensagem do WhatsApp
     const hora = new Date().getHours()
     let saudacao = "Olá! Boa noite!"
     if (hora >= 5 && hora < 12) {
@@ -110,7 +86,7 @@ export function LeadForm() {
     setCarregando(false)
     setEnviado(true)
 
-    // 5. Redireciona para o WhatsApp
+    // 4. Redireciona para o WhatsApp
     setTimeout(() => {
       window.open(WHATSAPP_LINK(mensagem), "_blank")
     }, 400)
