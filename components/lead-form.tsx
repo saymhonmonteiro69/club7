@@ -2,10 +2,10 @@
 
 import { useState } from "react"
 import { WHATSAPP_LINK } from "@/lib/whatsapp"
+import { leadFormSchema } from "@/schema"
 
 const GOOGLE_SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwMXgnn9EbjClJJLoDU2W8J4pvjElOUsJW-lVQ-W2H39Fue3w4hgV0vp8kWNBlFEl3Lkg/exec"
 
-// Configuração do Supabase via REST API
 const SUPABASE_URL = "https://bnsgtdhwyzxmvtsggjhf.supabase.co/rest/v1/leads"
 const SUPABASE_KEY = "sb_publishable_WQgPAcgR4S0P5WpEm49ZFw_RWqHFJJ1"
 
@@ -19,12 +19,31 @@ export function LeadForm() {
   const [plano, setPlano] = useState("club7")
   const [enviado, setEnviado] = useState(false)
   const [carregando, setCarregando] = useState(false)
+  const [erroValidacao, setErroValidacao] = useState("")
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setCarregando(true)
+    setErroValidacao("")
 
-    const nomePlano = plano === "club7-turbo" ? "Club 7 Turbo" : "Club 7"
+    // 0. Validação Forte no Front-end via Zod
+    const validacao = leadFormSchema.safeParse({
+      nome,
+      cpf,
+      telefone: whatsapp,
+      cnhA,
+      modeloMoto,
+      plano,
+      mensagemLivre,
+    })
+
+    if (!validacao.success) {
+      setErroValidacao(validacao.error.errors[0]?.message || "Preencha todos os campos corretamente.")
+      return
+    }
+
+    setCarregando(true)
+    const dadosLimpos = validacao.data
+    const nomePlano = dadosLimpos.plano === "club7-turbo" ? "Club 7 Turbo" : "Club 7"
 
     // 1. Envia para o Supabase via HTTP
     try {
@@ -37,13 +56,13 @@ export function LeadForm() {
           "Prefer": "return=minimal"
         },
         body: JSON.stringify({
-          nome: nome,
-          cpf: cpf,
-          telefone: whatsapp,
-          cnh: cnhA,
-          modelo_moto: modeloMoto,
+          nome: dadosLimpos.nome,
+          cpf: dadosLimpos.cpf,
+          telefone: dadosLimpos.telefone,
+          cnh: dadosLimpos.cnhA,
+          modelo_moto: dadosLimpos.modeloMoto,
           plano: nomePlano,
-          observacoes: mensagemLivre,
+          observacoes: dadosLimpos.mensagemLivre,
           status: "Novo"
         })
       })
@@ -53,13 +72,13 @@ export function LeadForm() {
 
     // 2. Dispara os dados para a Planilha do Google
     const formData = new FormData()
-    formData.append("nome", nome)
-    formData.append("cpf", cpf)
-    formData.append("cnhA", cnhA)
-    formData.append("whatsapp", whatsapp)
-    formData.append("modeloMoto", modeloMoto)
+    formData.append("nome", dadosLimpos.nome)
+    formData.append("cpf", dadosLimpos.cpf)
+    formData.append("cnhA", dadosLimpos.cnhA)
+    formData.append("whatsapp", dadosLimpos.telefone)
+    formData.append("modeloMoto", dadosLimpos.modeloMoto)
     formData.append("plano", nomePlano)
-    formData.append("mensagemLivre", mensagemLivre)
+    formData.append("mensagemLivre", dadosLimpos.mensagemLivre || "")
 
     if (GOOGLE_SHEETS_WEBHOOK_URL) {
       try {
@@ -82,10 +101,10 @@ export function LeadForm() {
       saudacao = "Olá! Boa tarde!"
     }
 
-    let mensagem = `${saudacao} Meu nome é ${nome}.\nCPF: ${cpf}\nCNH A: ${cnhA}\nWhatsApp: ${whatsapp}\nModelo de Interesse: ${modeloMoto}\nPlano de Interesse: *${nomePlano}*`
+    let mensagem = `${saudacao} Meu nome é ${dadosLimpos.nome}.\nCPF: ${dadosLimpos.cpf}\nCNH A: ${dadosLimpos.cnhA}\nWhatsApp: ${dadosLimpos.telefone}\nModelo de Interesse: ${dadosLimpos.modeloMoto}\nPlano de Interesse: *${nomePlano}*`
     
-    if (mensagemLivre.trim() !== "") {
-      mensagem += `\nDúvida/Observação: ${mensagemLivre}`
+    if (dadosLimpos.mensagemLivre && dadosLimpos.mensagemLivre.trim() !== "") {
+      mensagem += `\nDúvida/Observação: ${dadosLimpos.mensagemLivre}`
     }
 
     setCarregando(false)
@@ -117,6 +136,12 @@ export function LeadForm() {
 
   return (
     <form onSubmit={handleSubmit} className="bg-slate-900 border border-slate-800 p-6 sm:p-8 rounded-2xl space-y-4 text-white">
+      {erroValidacao && (
+        <div className="bg-red-500/10 border border-red-500/50 p-3 rounded-lg text-xs text-red-400 text-center font-bold">
+          ⚠️ {erroValidacao}
+        </div>
+      )}
+
       <div>
         <label className="block text-xs font-bold uppercase text-slate-300 mb-1">
           Seu Nome Completo
