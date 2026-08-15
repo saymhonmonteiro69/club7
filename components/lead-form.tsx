@@ -60,7 +60,17 @@ export function LeadForm() {
       return
     }
 
-    // 2. Dispara os dados para a Planilha do Google
+    // 2. Dispara o evento de Lead para o Meta Pixel (Facebook Ads)
+    if (typeof window !== "undefined" && (window as any).fbq) {
+      (window as any).fbq("track", "Lead", {
+        content_name: dadosLimpos.modeloMoto,
+        content_category: nomePlano,
+        value: 0.00,
+        currency: "BRL",
+      })
+    }
+
+    // 3. Dispara os dados para a Planilha do Google
     const formData = new FormData()
     formData.append("nome", dadosLimpos.nome)
     formData.append("cpf", dadosLimpos.cpf)
@@ -82,7 +92,7 @@ export function LeadForm() {
       }
     }
 
-    // 3. Monta a mensagem do WhatsApp
+    // 4. Monta a mensagem do WhatsApp
     const hora = new Date().getHours()
     let saudacao = "Olá! Boa noite!"
     if (hora >= 5 && hora < 12) {
@@ -100,7 +110,7 @@ export function LeadForm() {
     setCarregando(false)
     setEnviado(true)
 
-    // 4. Redireciona para o WhatsApp
+    // 5. Redireciona para o WhatsApp
     setTimeout(() => {
       window.open(WHATSAPP_LINK(mensagem), "_blank")
     }, 400)
