@@ -3,11 +3,9 @@
 import { useState } from "react"
 import { WHATSAPP_LINK } from "@/lib/whatsapp"
 import { leadFormSchema } from "@/lib/db/schema"
+import { submitLeadServer } from "@/app/actions/leads"
 
 const GOOGLE_SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwMXgnn9EbjClJJLoDU2W8J4pvjElOUsJW-lVQ-W2H39Fue3w4hgV0vp8kWNBlFEl3Lkg/exec"
-
-const SUPABASE_URL = "https://bnsgtdhwyzxmvtsggjhf.supabase.co/rest/v1/leads"
-const SUPABASE_KEY = "sb_publishable_WQgPAcgR4S0P5WpEm49ZFw_RWqHFJJ1"
 
 export function LeadForm() {
   const [nome, setNome] = useState("")
@@ -25,7 +23,7 @@ export function LeadForm() {
     e.preventDefault()
     setErroValidacao("")
 
-    // 0. Validação Forte no Front-end via Zod
+    // 0. Validação preliminar no Front-end
     const validacao = leadFormSchema.safeParse({
       nome,
       cpf,
@@ -45,29 +43,21 @@ export function LeadForm() {
     const dadosLimpos = validacao.data
     const nomePlano = dadosLimpos.plano === "club7-turbo" ? "Club 7 Turbo" : "Club 7"
 
-    // 1. Envia para o Supabase via HTTP
-    try {
-      await fetch(SUPABASE_URL, {
-        method: "POST",
-        headers: {
-          "apikey": SUPABASE_KEY,
-          "Authorization": `Bearer ${SUPABASE_KEY}`,
-          "Content-Type": "application/json",
-          "Prefer": "return=minimal"
-        },
-        body: JSON.stringify({
-          nome: dadosLimpos.nome,
-          cpf: dadosLimpos.cpf,
-          telefone: dadosLimpos.telefone,
-          cnh: dadosLimpos.cnhA,
-          modelo_moto: dadosLimpos.modeloMoto,
-          plano: nomePlano,
-          observacoes: dadosLimpos.mensagemLivre,
-          status: "Novo"
-        })
-      })
-    } catch (err) {
-      console.error("Erro no Supabase:", err)
+    // 1. Envia para o Supabase via Server Action (Etapa 4 - Server-Side)
+    const resultadoServer = await submitLeadServer({
+      nome: dadosLimpos.nome,
+      cpf: dadosLimpos.cpf,
+      telefone: dadosLimpos.telefone,
+      cnhA: dadosLimpos.cnhA,
+      modeloMoto: dadosLimpos.modeloMoto,
+      plano: dadosLimpos.plano,
+      mensagemLivre: dadosLimpos.mensagemLivre,
+    })
+
+    if (resultadoServer.error) {
+      setCarregando(false)
+      setErroValidacao(resultadoServer.error)
+      return
     }
 
     // 2. Dispara os dados para a Planilha do Google
