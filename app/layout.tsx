@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${inter.variable} bg-background`}>
       <head>
-        {/* Meta Pixel Code */}
+        {/* Meta Pixel Code - 2 Pixels Simultâneos */}
         <Script id="meta-pixel" strategy="afterInteractive">
           {`
             !function(f,b,e,v,n,t,s)
@@ -41,11 +41,23 @@ export default function RootLayout({
             t.src=v;s=b.getElementsByTagName(e)[0];
             s.parentNode.insertBefore(t,s)}(window, document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
+            
+            /* Pixel 1 (Conta Ativa com Saldo) */
+            fbq('init', '1036675152567938');
+            
+            /* Pixel 2 (Conta Anterior) */
             fbq('init', '2299072187295346');
+            
             fbq('track', 'PageView');
           `}
         </Script>
         <noscript>
+          <img
+            height="1"
+            width="1"
+            style={{ display: "none" }}
+            src="https://www.facebook.com/tr?id=1036675152567938&ev=PageView&noscript=1"
+          />
           <img
             height="1"
             width="1"
